@@ -17,6 +17,7 @@ class AppColors {
   final Color lightGrey2 = const Color(0xFFEEEEEE);
   final Color lightGrey3 = const Color(0xfff3f4f6);
   final Color lightGrey4 = const Color(0xfff9fafb);
+  final Color faGray = const Color(0xffF2F2F2);
   final Color darkGrey = const Color(0xd1474747);
   final Color gray = const Color(0xff1f2937);
   final Color disabled = const Color(0xffe9e9e9);
@@ -39,7 +40,10 @@ class AppColors {
   final Color disabledText = const Color(0xff6f6f6f);
   final Color red50 = const Color(0xFFFFEBEE);
   final Color red = const Color(0xFFF44336);
+  final Color opacityRed = const Color(0xFFBA0A0A);
+  final Color opacityFiol = const Color(0xFFA000D8);
   final Color lightRed = const Color(0xfffef2f2);
+  final Color opacityGreen = const Color(0xFF2DB56D);
   final Color green1 = const Color(0xFFC8E6C9);
   final Color priceGreen = const Color(0xFF219653);
   final Color greenTeal = const Color(0xff10b981);
@@ -49,11 +53,13 @@ class AppColors {
   final Color queueLightBlue = const Color(0xFFe4eefc);
   final Color dashboardTextLabel = const Color(0xFF505050);
   final Color grayishDarkBlue = const Color(0xff29304d);
-  final Color primary = const Color(0xFF43a047);
+  final Color primary = const Color(0xFF1CAE81);
+  final Color opacityIndigo = const Color(0xFF2D6CB5);
   final Color indigo9 = const Color(0xff1A237E);
   final Color indigo0p5 = const Color(0xFFE8EAF6);
   final Color indigo1 = const Color(0xFFC5CAE9);
   final Color yellow = const Color(0xffffaa00);
+  final Color opacityYellow = const Color(0xFFFFA800);
   final Color violet = const Color(0xff673ab7);
 
   const AppColors();

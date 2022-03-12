@@ -1,6 +1,7 @@
 import 'package:ecogram/bloc/app.dart';
 import 'package:ecogram/routes.dart';
-import 'package:ecogram/switcher.dart';
+import 'package:ecogram/screens/home.dart';
+import 'package:ecogram/screens/switcher.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:ecogram/theme/theme.dart';
 import 'package:fluro/fluro.dart';

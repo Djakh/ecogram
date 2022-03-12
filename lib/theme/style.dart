@@ -15,30 +15,6 @@ class Style {
       colors: [Style.colors.first, Style.colors.secondary]);
 
   /// Border radius templates
-  static BorderRadius get borderVer24 => const BorderRadius.vertical(
-        top: Radius.circular(24.0),
-      );
-
-  static BorderRadius get borderVer36 => const BorderRadius.vertical(
-        top: Radius.circular(36.0),
-      );
-
-  static BorderRadius get border16 => const BorderRadius.all(
-        Radius.circular(16.0),
-      );
-
-  static BorderRadius get border20 => const BorderRadius.all(
-        Radius.circular(20.0),
-      );
-
-  static BorderRadius get borderVer20 => const BorderRadius.vertical(
-        top: Radius.circular(20.0),
-      );
-
-  static BorderRadius get borderTop20 => const BorderRadius.only(
-        topLeft: Radius.circular(20.0),
-        topRight: Radius.circular(20.0),
-      );
 
   static BorderRadius get border2 => const BorderRadius.all(
         Radius.circular(2.0),
@@ -78,6 +54,35 @@ class Style {
 
   static BorderRadius get border14 => const BorderRadius.all(
         Radius.circular(14.0),
+      );
+
+  static BorderRadius get border16 => const BorderRadius.all(
+        Radius.circular(16.0),
+      );
+
+  static BorderRadius get borderVer24 => const BorderRadius.vertical(
+        top: Radius.circular(24.0),
+      );
+
+  static BorderRadius get border25 => const BorderRadius.all(
+        Radius.circular(25.0),
+      );
+
+  static BorderRadius get border20 => const BorderRadius.all(
+        Radius.circular(20.0),
+      );
+
+  static BorderRadius get borderVer20 => const BorderRadius.vertical(
+        top: Radius.circular(20.0),
+      );
+
+  static BorderRadius get borderTop20 => const BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        topRight: Radius.circular(20.0),
+      );
+
+  static BorderRadius get borderVer36 => const BorderRadius.vertical(
+        top: Radius.circular(36.0),
       );
 
   /// Padding templates
