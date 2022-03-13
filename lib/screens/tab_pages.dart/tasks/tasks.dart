@@ -1,6 +1,7 @@
 import 'package:ecogram/cells/card/task_card.dart';
 import 'package:ecogram/model/category.dart';
 import 'package:ecogram/model/task.dart';
+import 'package:ecogram/screens/tab_pages.dart/tasks/task_details.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,14 @@ class _TasksControllerState extends State<TasksController>
 
   /// --- Methods ---
 
+  void openTaskDetailsPage(Task task) {
+    Navigator.of(context).push(
+      CupertinoPageRoute(builder: (_) => TaskDetailsController(task: task)),
+    );
+  }
+
+  /// --- Widgets ---
+
   Widget test(String text) => Center(
         child: Text(
           text,
@@ -50,7 +59,7 @@ class _TasksControllerState extends State<TasksController>
         separatorBuilder: (_, __) => const SizedBox(height: 12.0),
         itemBuilder: (_, index) => TaskCard(
           task: listTask[index],
-          function: () {},
+          function: () => openTaskDetailsPage(listTask[index]),
         ),
       );
 
@@ -58,8 +67,6 @@ class _TasksControllerState extends State<TasksController>
         listCategoryTab.length,
         (index) => listTask(listDataTask),
       );
-
-  /// --- Widgets ---
 
   Widget get tabBar => Container(
         decoration: BoxDecoration(
