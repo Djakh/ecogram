@@ -1,4 +1,4 @@
-import 'package:ecogram/screens/tab_pages.dart/activity.dart';
+import 'package:ecogram/screens/tab_pages.dart/feed.dart';
 import 'package:ecogram/screens/tab_pages.dart/challange.dart';
 import 'package:ecogram/screens/tab_pages.dart/notifications.dart';
 import 'package:ecogram/screens/tab_pages.dart/profile/profile.dart';
@@ -101,7 +101,7 @@ class _HomeControllerState extends State<HomeController> {
   Widget get buildItem {
     switch (_selectedIndex) {
       case 0:
-        return ActivityController();
+        return FeedController();
       case 1:
         return ChallangeController();
       case 2:

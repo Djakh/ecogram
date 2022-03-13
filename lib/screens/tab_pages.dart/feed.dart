@@ -1,14 +1,14 @@
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 
-class ActivityController extends StatefulWidget {
-  const ActivityController({Key key}) : super(key: key);
+class FeedController extends StatefulWidget {
+  const FeedController({Key key}) : super(key: key);
 
   @override
-  State<ActivityController> createState() => _ActivityControllerState();
+  State<FeedController> createState() => _FeedControllerState();
 }
 
-class _ActivityControllerState extends State<ActivityController> {
+class _FeedControllerState extends State<FeedController> {
   @override
   Widget build(BuildContext context) {
     return Container(

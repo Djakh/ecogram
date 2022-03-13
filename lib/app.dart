@@ -1,5 +1,5 @@
 import 'package:ecogram/bloc/app.dart';
-import 'package:ecogram/bloc/photo.dart';
+import 'package:ecogram/bloc/performed_task.dart';
 import 'package:ecogram/routes.dart';
 import 'package:ecogram/screens/home.dart';
 import 'package:ecogram/theme/style.dart';
@@ -64,7 +64,7 @@ class _EcogramAppState extends State<EcogramApp> {
   Widget build(BuildContext context) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => AppCubit()),
-            BlocProvider(create: (_) => PhotoCubit()),
+            BlocProvider(create: (_) => PerformedTaskCubit()),
           ],
           child: CupertinoApp(
               theme: theme,
