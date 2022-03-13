@@ -1,3 +1,4 @@
+import 'package:ecogram/screens/tab_pages.dart/profile/profile_settings.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class _ProfileControllerState extends State<ProfileController>
         test("Some"),
         test("Any"),
       ];
+
 
   /// --- Widgets ---
 

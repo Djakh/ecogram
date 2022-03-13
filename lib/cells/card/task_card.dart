@@ -33,7 +33,7 @@ class TaskCard extends StatelessWidget {
   Widget get cardImage => Container(
         height: 70,
         width: 70,
-        child: Image.asset(task.image),
+        child: Image.asset(task.iconImage),
       );
 
   Widget get corps => Row(

@@ -2,7 +2,8 @@ import 'package:ecogram/screens/tab_pages.dart/activity.dart';
 import 'package:ecogram/screens/tab_pages.dart/challange.dart';
 import 'package:ecogram/screens/tab_pages.dart/notifications.dart';
 import 'package:ecogram/screens/tab_pages.dart/profile/profile.dart';
-import 'package:ecogram/screens/tab_pages.dart/tasks.dart';
+import 'package:ecogram/screens/tab_pages.dart/profile/profile_settings.dart';
+import 'package:ecogram/screens/tab_pages.dart/tasks/tasks.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +35,23 @@ class _HomeControllerState extends State<HomeController> {
     setState(() {});
   }
 
+  void openProfileSettings() {
+    Navigator.of(context).push(
+      CupertinoPageRoute(builder: (_) => ProfileSettingsController()),
+    );
+  }
+
   /// --- Widgets ---
 
-  Widget headerBox(String text, IconData icon) => Padding(
+  Widget headerBox(String text, IconData icon, Function function) => Padding(
       padding: Style.padding16.copyWith(
         top: 8.0,
         bottom: 40.0,
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Icon(Icons.search, color: Style.colors.white),
+        GestureDetector(
+            onTap: () => function,
+            child: Icon(Icons.search, color: Style.colors.white)),
         Text(
           text,
           style: Style.body3w5.copyWith(color: Style.colors.white),
@@ -75,17 +84,17 @@ class _HomeControllerState extends State<HomeController> {
   Widget get getheaderBox {
     switch (_selectedIndex) {
       case 0:
-        return headerBox("Feed", Icons.person_add);
+        return headerBox("Feed", Icons.person_add, () {});
       case 1:
-        return headerBox("Challange", Icons.person_add);
+        return headerBox("Challange", Icons.person_add, () {});
       case 2:
-        return headerBox("Notification", null);
+        return headerBox("Notification", null, () {});
       case 3:
-        return headerBox("Feed", Icons.list);
-      case 3:
-        return headerBox("Profile", Icons.list);
+        return headerBox("Feed", Icons.list, () {});
+      case 4:
+        return headerBox("Profile", Icons.settings, openProfileSettings);
       default:
-        return headerBox("Feed", Icons.list);
+        return headerBox("Feed", Icons.list, () {});
     }
   }
 
@@ -158,7 +167,7 @@ class _HomeControllerState extends State<HomeController> {
           ),
         ),
       );
-      
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Style.colors.primary,

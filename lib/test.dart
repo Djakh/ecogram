@@ -1,15 +1,14 @@
-import 'dart:async';
+// A screen that allows users to take a picture using a given camera.
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-// A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     Key key,
-    @required this.camera,
+     this.camera,
   }) : super(key: key);
 
   final CameraDescription camera;
@@ -102,7 +101,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
 
-  const DisplayPictureScreen({Key key, @required this.imagePath})
+  const DisplayPictureScreen({Key key,  this.imagePath})
       : super(key: key);
 
   @override

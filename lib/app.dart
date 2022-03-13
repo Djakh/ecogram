@@ -1,7 +1,7 @@
 import 'package:ecogram/bloc/app.dart';
+import 'package:ecogram/bloc/photo.dart';
 import 'package:ecogram/routes.dart';
 import 'package:ecogram/screens/home.dart';
-import 'package:ecogram/screens/switcher.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:ecogram/theme/theme.dart';
 import 'package:fluro/fluro.dart';
@@ -64,6 +64,7 @@ class _EcogramAppState extends State<EcogramApp> {
   Widget build(BuildContext context) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => AppCubit()),
+            BlocProvider(create: (_) => PhotoCubit()),
           ],
           child: CupertinoApp(
               theme: theme,
@@ -78,7 +79,7 @@ class _EcogramAppState extends State<EcogramApp> {
                 color: Style.colors.white,
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 500),
-                  child: isLoader ? loader : Switcher(),
+                  child: isLoader ? loader : HomeController(),
                 ),
               )));
 }
