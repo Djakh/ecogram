@@ -1,12 +1,17 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:ecogram/bloc/performed_task.dart';
 import 'package:ecogram/cells/button.dart';
+import 'package:ecogram/cells/text_field.dart';
+import 'package:ecogram/model/performed_task.dart';
 import 'package:ecogram/model/task.dart';
 import 'package:ecogram/screens/tab_pages.dart/tasks/take_picture_page.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class TaskPerformController extends StatefulWidget {
   final Task task;
@@ -16,23 +21,72 @@ class TaskPerformController extends StatefulWidget {
 }
 
 class _TaskPerformControllerState extends State<TaskPerformController> {
-  final phoneController = TextEditingController();
-  XFile xFileResut;
+  final opinionController = TextEditingController();
+  XFile xFileResult;
+  String error = "";
+
+  /// --- Life Cycles ---
+
+  @override
+  void dispose() {
+    super.dispose();
+    opinionController.dispose();
+  }
 
   /// --- Methods ---
 
   void showCamera() async {
     final cameras = await availableCameras();
     final camera = cameras.first;
-    xFileResut = await Navigator.push(
+    xFileResult = await Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => TakePicturePage(camera: camera)));
-    listxFileResult.add(xFileResut);
+
+    setState(() {});
+  }
+
+  void showSaveSheet() => showCupertinoModalBottomSheet(
+      context: context, builder: (_) => bottomSheetView);
+
+  void completeMethod() async {
+    if (xFileResult != null) {
+      PerformedTask performedTask =
+          PerformedTask(text: opinionController.text, xfile: xFileResult);
+      context.read<PerformedTaskCubit>().addPerformedTask(performedTask);
+      showSaveSheet();
+    } else {
+      error = "You should take a photo";
+    }
     setState(() {});
   }
 
   /// --- Widgets ---
+
+  Widget get bottomSheetView => Material(
+      color: Style.colors.white,
+      child: Padding(
+        padding: Style.padding20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 4.0),
+            Text("Wonderful",
+                style: Style.body2w5.copyWith(color: Style.colors.primary)),
+            const SizedBox(height: 12.0),
+            Text("You earn some points which are can be used instead of money",
+                style: Style.bodyw3.copyWith(color: Style.colors.grey)),
+            const SizedBox(height: 32.0),
+            Button.primary(
+                text: "Okay",
+                style: Style.bodyw5.copyWith(color: Style.colors.primary),
+                color: Style.colors.queueLightBlue,
+                onPressed: () => Navigator.pop(context)),
+            const SizedBox(height: 32.0),
+          ],
+        ),
+      ));
 
   Widget detailsImageBox(String image, double height, double width) =>
       Container(
@@ -120,7 +174,7 @@ class _TaskPerformControllerState extends State<TaskPerformController> {
           image: DecorationImage(
             fit: BoxFit.cover,
             image: FileImage(
-              File(xFileResut.path),
+              File(xFileResult.path),
             ),
           ),
           color: Style.colors.grey3,
@@ -128,10 +182,25 @@ class _TaskPerformControllerState extends State<TaskPerformController> {
       );
 
   Widget get gesturePhoto => GestureDetector(
-      onTap: showCamera, child: xFileResut != null ? takenPhoto : upload);
+      onTap: showCamera, child: xFileResult != null ? takenPhoto : upload);
+
+  Widget get inputUserOpinion => Container(
+        padding: Style.paddingHor16,
+        decoration: BoxDecoration(
+          color: Style.colors.grey1,
+          borderRadius: Style.border8,
+        ),
+        child: TextInputField.large(
+          controller: opinionController,
+          placeholder: "Write some thing",
+          hintColor: Style.colors.grey6,
+        ),
+      );
+  Widget get errorText =>
+      error != null ? Text(error, style: Style.errorw5) : SizedBox();
 
   Widget get complete => Button.primary(
-        onPressed: () {},
+        onPressed: completeMethod,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -154,7 +223,11 @@ class _TaskPerformControllerState extends State<TaskPerformController> {
             gesturePhoto,
             const SizedBox(height: 8.0),
             descriptionTitle,
+            const SizedBox(height: 10.0),
+            inputUserOpinion,
             const SizedBox(height: 48),
+            errorText,
+            const SizedBox(height: 8.0),
             complete,
             const SizedBox(height: 10.0),
           ],
@@ -178,5 +251,3 @@ class _TaskPerformControllerState extends State<TaskPerformController> {
         ),
       );
 }
-
-List<XFile> listxFileResult = [];

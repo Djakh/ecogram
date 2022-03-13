@@ -1,3 +1,4 @@
+import 'package:ecogram/screens/tab_pages.dart/profile/activity.dart';
 import 'package:ecogram/screens/tab_pages.dart/profile/profile_settings.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,12 +42,28 @@ class _ProfileControllerState extends State<ProfileController>
       );
 
   List<Widget> get getView => [
-        test("Some"),
         test("Any"),
+        ActivityController(),
       ];
 
-
   /// --- Widgets ---
+
+  Widget get circleCamera => CircleAvatar(
+        backgroundColor: Style.colors.grey,
+        radius: 30,
+        child: Icon(
+          Icons.camera_alt_rounded,
+          color: Style.colors.black,
+          size: 30,
+        ),
+      );
+
+  Widget follows(String text, int amount) => Column(
+        children: [
+          Text(text, style: Style.body2w5),
+          Text(amount.toString(), style: Style.body2w5)
+        ],
+      );
 
   Widget get tabBar => Padding(
         padding: Style.paddingHor16,
@@ -80,9 +97,21 @@ class _ProfileControllerState extends State<ProfileController>
     return Container(
       child: Expanded(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 4),
+            circleCamera,
+            const SizedBox(height: 10),
+            Text("Shoxjahon Bositxonov", style: Style.body3w5),
+            const SizedBox(height: 20),
             tabBar,
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                follows("Followers", 30),
+                follows("Following", 50),
+              ],
+            ),
             Expanded(
               child: TabBarView(controller: _tabController, children: getView),
             ),
