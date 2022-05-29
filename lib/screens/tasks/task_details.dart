@@ -1,13 +1,12 @@
 import 'package:ecogram/cells/button.dart';
 import 'package:ecogram/model/task.dart';
-import 'package:ecogram/screens/tab_pages.dart/tasks/task_perform.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TaskDetailsController extends StatefulWidget {
   final Task task;
-  const TaskDetailsController({Key key, @required this.task}) : super(key: key);
+  const TaskDetailsController({Key? key, required this.task}) : super(key: key);
   @override
   _TaskDetailsControllerState createState() => _TaskDetailsControllerState();
 }
@@ -17,12 +16,7 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
 
   /// --- Methods ---
 
-  void openTaskPerformPage() {
-    Navigator.of(context).push(
-      CupertinoPageRoute(
-          builder: (_) => TaskPerformController(task: widget.task)),
-    );
-  }
+  void openTaskPerformPage() {}
 
   /// --- Widgets ---
 
@@ -39,7 +33,7 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
       );
 
   Widget iconHeader(IconData icon, Function function) => GestureDetector(
-        onTap: function,
+        onTap: () {},
         child: Icon(
           icon,
           size: 24.0,
@@ -51,7 +45,10 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           iconHeader(Icons.arrow_back_rounded, () => Navigator.pop(context)),
-          detailsTitle(widget.task.headText),
+          Text(
+            "Details",
+            style: Style.body2w5.copyWith(color: Style.colors.white),
+          ),
           iconHeader(Icons.file_upload_outlined, () {}),
         ],
       );
@@ -158,9 +155,9 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
         ),
       );
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
+  Widget build(BuildContext context) => Scaffold(
         backgroundColor: Style.colors.primary,
-        child: SafeArea(
+        body: SafeArea(
           bottom: false,
           child: view,
         ),

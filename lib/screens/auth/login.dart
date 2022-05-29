@@ -4,23 +4,32 @@ import 'package:ecogram/routes.dart';
 import 'package:ecogram/screens/auth/otp.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginController extends StatefulWidget {
-  const LoginController({Key key}) : super(key: key);
+  const LoginController({Key? key}) : super(key: key);
 
   @override
   _LoginControllerState createState() => _LoginControllerState();
 }
 
 class _LoginControllerState extends State<LoginController> {
-  final phoneController = TextEditingController();
+  final _phoneController = TextEditingController();
   String error = '';
+  late TapGestureRecognizer _registerLink;
 
-  /// --- Life Cycles ---
+  /// --- Life ciycle ---
+
+  @override
+  void initState() {
+    _registerLink = TapGestureRecognizer()..onTap = openSignUp;
+    super.initState();
+  }
 
   @override
   void dispose() {
+    _registerLink.dispose();
     super.dispose();
   }
 
@@ -35,11 +44,11 @@ class _LoginControllerState extends State<LoginController> {
 
   void openOTPage() => Navigator.of(context).push(
         CupertinoPageRoute(
-            builder: (_) => OtpController(phone: phoneController.text)),
+            builder: (_) => OtpController(phone: _phoneController.text)),
       );
 
   void submit() async {
-    if (phoneController.text.length < 12) {
+    if (_phoneController.text.length < 12) {
       error = 'couldn`t sign in with those credentials';
       setState(() {});
     } else {
@@ -60,7 +69,7 @@ class _LoginControllerState extends State<LoginController> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Icon(
                   CupertinoIcons.back,
-                  color: Style.colors.gray,
+                  color: Style.colors.grey3,
                   size: 32,
                 ),
               ),
@@ -69,40 +78,26 @@ class _LoginControllerState extends State<LoginController> {
         ),
       );
 
-  Widget get mainText => Text("Log in",
-      style: Style.headline5w3
-          .copyWith(color: Style.colors.primary, fontWeight: FontWeight.w500));
-
-  Widget get description => Padding(
-      padding: Style.paddingHor30,
-      child: Text(
-        "Please, enter your phone number to log in the system",
-        style: Style.bodyw3,
-        textAlign: TextAlign.center,
-        maxLines: 2,
-      ));
-
-  Widget get numberField => TextInputField.phone(
-        keyboardType: TextInputType.phone,
-        controller: phoneController,
-        placeholder: "-- --- -- --",
-        hintColor: Style.colors.black,
+  Widget get mainText => Center(
+        child: Text("Log in",
+            style: Style.headline5w3.copyWith(
+                color: Style.colors.primary, fontWeight: FontWeight.w500)),
       );
 
-  Widget get inputPhoneNumber => Container(
-        padding: Style.paddingHor16,
-        decoration: BoxDecoration(
-          color: Style.colors.white,
-          borderRadius: Style.border8,
+  Widget get description => Center(
+        child: Text(
+          "Please, enter your phone number to log in the system",
+          style: Style.bodyw3,
+          textAlign: TextAlign.center,
+          maxLines: 2,
         ),
-        child: Row(
-          children: [
-            Text("+998", style: Style.body2w3),
-            SizedBox(
-                height: 25, child: VerticalDivider(color: Style.colors.grey)),
-            Expanded(child: numberField)
-          ],
-        ),
+      );
+
+  Widget get phoneTextInput => TextInputField.phone(
+        controller: _phoneController,
+        height: 56,
+        placeholder: "phone number",
+        backgroundColor: Style.colors.grey0p5,
       );
 
   Widget get finishButton => Button.primary(text: "Log in", onPressed: submit);
@@ -110,52 +105,42 @@ class _LoginControllerState extends State<LoginController> {
   Widget get errorText =>
       Text(error, style: Style.bodyw5.copyWith(color: Style.colors.red));
 
-  Widget get signUpTextButton => Column(
-        children: [
-          Text(
-            "Don't have an account?",
-            style: Style.bodyw3.copyWith(color: Style.colors.grey8),
-            textAlign: TextAlign.center,
-          ),
-          Container(
-            height: 30,
-            child: Button.text(
-                onPressed: () => openSignUp(),
-                text: "Register",
-                height: 10,
-                style: Style.bodyw5.copyWith(
-                    decoration: TextDecoration.underline,
-                    color: Style.colors.primary)),
-          )
-        ],
+  Widget get registerLink => Text.rich(
+        TextSpan(
+          text: "Don't have an account? ",
+          style: Style.body2w5.copyWith(color: Style.colors.grey4),
+          children: [
+            TextSpan(
+              text: "Register",
+              style: Style.body2w5.copyWith(color: Style.colors.primary),
+              recognizer: _registerLink,
+            ),
+          ],
+        ),
+        textAlign: TextAlign.center,
       );
 
-  Widget get corps => Padding(
+  Widget get view => ListView(
+        physics: ClampingScrollPhysics(),
         padding: Style.padding16,
-        child: Column(children: [
+        children: [
           const SizedBox(height: 100.0),
           mainText,
           const SizedBox(height: 16.0),
           description,
           const SizedBox(height: 48.0),
-          inputPhoneNumber,
+          phoneTextInput,
           const SizedBox(height: 72.0),
           finishButton,
           const SizedBox(height: 24.0),
-          signUpTextButton,
+          registerLink,
           const SizedBox(height: 16.0),
           errorText
-        ]),
-      );
-
-  Widget get view => ListView(
-        physics: const ClampingScrollPhysics(),
-        children: [corps],
+        ],
       );
 
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-        backgroundColor: Style.colors.background,
-        child: view,
+  Widget build(BuildContext context) => Scaffold(
+        body: SafeArea(child: view),
       );
 }

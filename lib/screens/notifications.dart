@@ -2,7 +2,7 @@ import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 
 class NotificationsController extends StatefulWidget {
-  const NotificationsController({Key key}) : super(key: key);
+  const NotificationsController({Key? key}) : super(key: key);
 
   @override
   State<NotificationsController> createState() =>

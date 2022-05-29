@@ -1,13 +1,11 @@
-import 'package:ecogram/cells/bottom_sheet/yes_or_no_sheet.dart';
 import 'package:ecogram/routes.dart';
 import 'package:ecogram/theme/style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProfileSettingsController extends StatefulWidget {
   const ProfileSettingsController({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,12 +22,7 @@ class _ProfileSettingsControllerState extends State<ProfileSettingsController> {
   /// --- Methods ---
 
   void showlogOutSheet(BuildContext context) => showCupertinoModalBottomSheet(
-      context: context,
-      builder: (_) => YesOrNoBottomSheet(
-          yesFunction: () {},
-          noFunction: () => Navigator.of(context).maybePop(),
-          mainText: "Log out",
-          subText: "Do you really want to log out the system?"));
+      context: context, builder: (_) => Column(children: []));
 
   void openEditProile() {
     Navigator.of(context).pushNamed(
@@ -46,7 +39,10 @@ class _ProfileSettingsControllerState extends State<ProfileSettingsController> {
       );
 
   Widget categoryType(
-          {String title, IconData icon, bool isChavron, Function function}) =>
+          {required String title,
+          required IconData icon,
+          required bool isChavron,
+          required Function function}) =>
       GestureDetector(
         onTap: () => function(),
         child: Container(

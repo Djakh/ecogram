@@ -1,11 +1,11 @@
 import 'package:ecogram/app.dart';
 import 'package:ecogram/screens/auth/login.dart';
 import 'package:ecogram/screens/auth/signup.dart';
-import 'package:ecogram/screens/tab_pages.dart/profile/edit_profile.dart';
+import 'package:ecogram/screens/profile/edit_profile.dart';
 import 'package:fluro/fluro.dart';
 
 class Application {
-  static FluroRouter router;
+  static FluroRouter? router;
 }
 
 class AppRoutes {

@@ -1,11 +1,9 @@
-import 'package:ecogram/screens/tab_pages.dart/profile/activity.dart';
-import 'package:ecogram/screens/tab_pages.dart/profile/profile_settings.dart';
+import 'package:ecogram/screens/profile/activity.dart';
 import 'package:ecogram/theme/style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProfileController extends StatefulWidget {
-  const ProfileController({Key key}) : super(key: key);
+  const ProfileController({Key? key}) : super(key: key);
 
   @override
   State<ProfileController> createState() => _ProfileControllerState();
@@ -13,7 +11,7 @@ class ProfileController extends StatefulWidget {
 
 class _ProfileControllerState extends State<ProfileController>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  late TabController _tabController;
 
   /// --- Life Cycles ---
 
@@ -31,21 +29,6 @@ class _ProfileControllerState extends State<ProfileController>
 
   /// --- Methods ---
 
-  Widget test(String text) => Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      );
-
-  List<Widget> get getView => [
-        test("Any"),
-        ActivityController(),
-      ];
-
   /// --- Widgets ---
 
   Widget get circleCamera => CircleAvatar(
@@ -58,19 +41,12 @@ class _ProfileControllerState extends State<ProfileController>
         ),
       );
 
-  Widget follows(String text, int amount) => Column(
-        children: [
-          Text(text, style: Style.body2w5),
-          Text(amount.toString(), style: Style.body2w5)
-        ],
-      );
-
   Widget get tabBar => Padding(
         padding: Style.paddingHor16,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: Style.border25,
-            color: Style.colors.faGray,
+            color: Style.colors.grey3,
           ),
           child: TabBar(
               controller: _tabController,
@@ -105,15 +81,11 @@ class _ProfileControllerState extends State<ProfileController>
             const SizedBox(height: 20),
             tabBar,
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                follows("Followers", 30),
-                follows("Following", 50),
-              ],
-            ),
             Expanded(
-              child: TabBarView(controller: _tabController, children: getView),
+              child: TabBarView(controller: _tabController, children: [
+                SizedBox(),
+                ActivityController(),
+              ]),
             ),
           ],
         ),

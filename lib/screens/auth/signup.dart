@@ -6,9 +6,8 @@ import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class SignUpController extends StatefulWidget {
-  const SignUpController({Key key}) : super(key: key);
+  const SignUpController({Key? key}) : super(key: key);
 
   @override
   _SignUpControllerState createState() => _SignUpControllerState();
@@ -59,7 +58,7 @@ class _SignUpControllerState extends State<SignUpController> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Icon(
                   CupertinoIcons.back,
-                  color: Style.colors.gray,
+                  color: Style.colors.grey,
                   size: 32,
                 ),
               ),
@@ -84,7 +83,6 @@ class _SignUpControllerState extends State<SignUpController> {
         keyboardType: TextInputType.phone,
         controller: phoneController,
         placeholder: "-- --- -- --",
-        hintColor: Style.colors.black,
       );
 
   Widget get inputPhoneNumber => Container(
@@ -155,8 +153,7 @@ class _SignUpControllerState extends State<SignUpController> {
       );
 
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-        backgroundColor: Style.colors.background,
-        child: view,
+  Widget build(BuildContext context) => Scaffold(
+        body: view,
       );
 }
