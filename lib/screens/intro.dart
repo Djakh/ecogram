@@ -2,11 +2,11 @@ import 'package:ecogram/asset_manager.dart';
 import 'package:ecogram/bloc/app.dart';
 import 'package:ecogram/cells/button.dart';
 import 'package:ecogram/theme/style.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IntroController extends StatefulWidget {
-  const IntroController({Key key}) : super(key: key);
+  const IntroController({Key? key}) : super(key: key);
 
   @override
   _IntroControllerState createState() => _IntroControllerState();
@@ -58,7 +58,7 @@ class _IntroControllerState extends State<IntroController> {
           "Complete the tasks, collect points and exchange to bonuses ",
         ),
         page(
-          AssetManager.onboard0,
+          AssetManager.onboard2,
           "Challenge",
           "Challenge your friends and get valuable gifts",
         ),
@@ -162,7 +162,7 @@ class _IntroControllerState extends State<IntroController> {
       );
 
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-        child: view,
+  Widget build(BuildContext context) => Scaffold(
+        body: view,
       );
 }

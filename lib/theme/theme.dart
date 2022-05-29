@@ -1,14 +1,13 @@
 import 'package:ecogram/theme/style.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-final theme = CupertinoThemeData(
-  brightness: Style.appBrightness,
-  primaryColor: Style.colors.primary,
-  scaffoldBackgroundColor: Style.colors.background,
-  barBackgroundColor: Style.colors.background,
-  textTheme: CupertinoTextThemeData(
-    textStyle: Style.bodyw3,
-    navActionTextStyle: TextStyle(color: Style.colors.black),
-    navTitleTextStyle: Style.body3w5,
-  ),
-);
+final theme = ThemeData(
+    brightness: Style.appBrightness,
+    appBarTheme: AppBarTheme(
+        elevation: 0,
+        backgroundColor: Style.colors.background,
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Style.colors.black, size: 24)),
+    primaryColor: Style.colors.primary,
+    scaffoldBackgroundColor: Style.colors.white,
+    iconTheme: IconThemeData(color: Style.colors.black));

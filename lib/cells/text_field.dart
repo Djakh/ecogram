@@ -3,35 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-enum TextInputFieldType { ordinary, obscure, large, phone, smsCode }
+enum TextInputFieldType { primary, obscure, large, phone, number }
 
 class TextInputField extends StatefulWidget {
-  final String placeholder;
-  final String title;
-  final String error;
+  final TextInputFieldType? type;
+  final String? placeholder;
+  final String? title;
+  final String? error;
   final bool obscureText;
   final bool autofocus;
   final bool autocorrect;
   final bool readonly;
-  final bool searchText;
-  final BorderRadiusGeometry borderRadius;
-  final TextEditingController controller;
-  final ValueChanged<String> onChange;
-  final GestureTapCallback onTap;
-  final TextInputType keyboardType;
-  final FocusNode focusNode;
-  final Widget suffixIcon;
-  final Widget prefixIcon;
-  final Color color;
-  final Color hintColor;
-  final int maxLines;
-  final int minLines;
-  final EdgeInsets contentPadding;
-  final TextInputFieldType type;
-
-  const TextInputField.ordinary({
+  final TextEditingController? controller;
+  final ValueChanged<String>? onChange;
+  final GestureTapCallback? onTap;
+  final TextInputType? keyboardType;
+  final FocusNode? focusNode;
+  final Widget? suffixIcon;
+  final int? maxLength;
+  final int? maxLines;
+  final int? minLines;
+  final Color? backgroundColor;
+  final double? height;
+  final hintText;
+  const TextInputField.primary({
     @required this.controller,
-    Key key,
+    Key? key,
     this.placeholder,
     this.title,
     this.error,
@@ -45,18 +42,16 @@ class TextInputField extends StatefulWidget {
     this.suffixIcon,
     this.maxLines = 1,
     this.minLines = 1,
-    this.prefixIcon,
-    this.searchText = false,
-    this.borderRadius,
-    this.color,
-    this.hintColor,
-    this.contentPadding,
-  })  : this.obscureText = false,
-        this.type = TextInputFieldType.ordinary,
+    this.maxLength,
+    this.backgroundColor,
+    this.height,
+    this.hintText,
+  })  : this.type = TextInputFieldType.primary,
+        this.obscureText = false,
         super(key: key);
 
   const TextInputField.obscure({
-    Key key,
+    Key? key,
     this.placeholder,
     this.title,
     this.error,
@@ -71,19 +66,17 @@ class TextInputField extends StatefulWidget {
     this.suffixIcon,
     this.maxLines = 1,
     this.minLines = 1,
-    this.prefixIcon,
-    this.borderRadius,
-    this.color,
-    this.hintColor,
-    this.contentPadding,
-  })  : this.obscureText = true,
-        this.searchText = false,
-        this.type = TextInputFieldType.obscure,
+    this.maxLength,
+    this.backgroundColor,
+    this.height,
+    this.hintText,
+  })  : this.type = TextInputFieldType.obscure,
+        this.obscureText = true,
         super(key: key);
 
   const TextInputField.large({
     @required this.controller,
-    Key key,
+    Key? key,
     this.placeholder,
     this.title,
     this.error,
@@ -96,26 +89,24 @@ class TextInputField extends StatefulWidget {
     this.focusNode,
     this.suffixIcon,
     this.maxLines,
-    this.prefixIcon,
-    this.borderRadius,
-    this.color,
-    this.hintColor,
-    this.contentPadding,
-  })  : this.obscureText = false,
+    this.maxLength,
+    this.backgroundColor,
+    this.hintText,
+  })  : this.type = TextInputFieldType.large,
+        this.height = null,
+        this.obscureText = false,
         this.minLines = 5,
-        this.searchText = false,
-        this.type = TextInputFieldType.large,
         super(key: key);
 
   const TextInputField.phone({
-    Key key,
+    @required this.controller,
+    Key? key,
     this.placeholder,
     this.title,
     this.error,
     this.autofocus = false,
     this.autocorrect = false,
     this.readonly = false,
-    @required this.controller,
     this.onChange,
     this.onTap,
     this.keyboardType = TextInputType.number,
@@ -123,25 +114,23 @@ class TextInputField extends StatefulWidget {
     this.suffixIcon,
     this.maxLines = 1,
     this.minLines = 1,
-    this.prefixIcon,
-    this.borderRadius,
-    this.color,
-    this.hintColor,
-    this.contentPadding,
-    this.obscureText = false,
-    this.searchText = false,
+    this.maxLength,
+    this.backgroundColor,
+    this.height,
+    this.hintText,
   })  : this.type = TextInputFieldType.phone,
+        this.obscureText = false,
         super(key: key);
 
-  const TextInputField.smsCode({
-    Key key,
+  const TextInputField.number({
+    @required this.controller,
+    Key? key,
     this.placeholder,
     this.title,
     this.error,
     this.autofocus = false,
     this.autocorrect = false,
     this.readonly = false,
-    @required this.controller,
     this.onChange,
     this.onTap,
     this.keyboardType = TextInputType.number,
@@ -149,14 +138,12 @@ class TextInputField extends StatefulWidget {
     this.suffixIcon,
     this.maxLines = 1,
     this.minLines = 1,
-    this.prefixIcon,
-    this.borderRadius,
-    this.color,
-    this.hintColor,
-    this.contentPadding,
-    this.obscureText = false,
-    this.searchText = false,
-  })  : this.type = TextInputFieldType.smsCode,
+    this.maxLength,
+    this.backgroundColor,
+    this.height,
+    this.hintText,
+  })  : this.type = TextInputFieldType.number,
+        this.obscureText = false,
         super(key: key);
 
   @override
@@ -171,7 +158,6 @@ class _TextInputFieldState extends State<TextInputField> {
   FocusNode focusNode;
   bool obscureText;
   bool focused;
-  bool isObscureTextField;
 
   _TextInputFieldState(
     this.focusNode,
@@ -179,7 +165,13 @@ class _TextInputFieldState extends State<TextInputField> {
     this.focused,
   );
 
-  /// --- Life Cycles ---
+  get borderWidth => widget.error != null || focused ? 1.5 : 1.0;
+
+  get borderColor => widget.error != null
+      ? Style.colors.error
+      : (focused ? Style.colors.primary : Style.colors.grey0p5);
+
+  late bool isObscureTextField;
 
   @override
   void initState() {
@@ -187,18 +179,6 @@ class _TextInputFieldState extends State<TextInputField> {
     isObscureTextField = obscureText;
     focusNode.addListener(onFocusChange);
   }
-
-  @override
-  void dispose() {
-    focusNode.dispose();
-    super.dispose();
-  }
-
-  /// --- Methods ---
-
-  get borderColor => widget.error != null
-      ? Style.colors.error
-      : widget.color ?? (focused ? Style.colors.primary : Style.colors.grey4);
 
   void onFocusChange() {
     if (!mounted) return;
@@ -213,65 +193,30 @@ class _TextInputFieldState extends State<TextInputField> {
     });
   }
 
-  void clearSearchController() {
-    if (widget.controller.text.isEmpty) {
-      FocusScope.of(context).unfocus();
-    } else {
-      widget.controller.clear();
-    }
-  }
-
-  /// --- Widgets ---
-
   Widget get visibilityIcon => IconButton(
         onPressed: toggle,
         icon: Icon(
           obscureText ? Icons.visibility : Icons.visibility_off,
-          color: focused ? Style.colors.primary : Style.colors.grey,
+          color: focused ? Style.colors.primary : Style.colors.grey4,
         ),
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.all(0),
       );
-
-  Widget get leading => Icon(
-        Icons.search,
-        color: focused ? Style.colors.primary : Style.colors.grey,
-      );
-
-  Widget get closeIcon => !focused
-      ? Container()
-      : IconButton(
-          onPressed: clearSearchController,
-          icon: Icon(Icons.close, color: Style.colors.primary),
-          padding: EdgeInsets.zero,
-        );
 
   Widget get errorText => Text(
-        widget.error,
-        style: Style.bodyw5.copyWith(color: Style.colors.error),
+        widget.error!,
+        style: Style.minTextw5.copyWith(color: Style.colors.error),
       );
 
   Widget get textField => Theme(
         data: ThemeData(
-          inputDecorationTheme: InputDecorationTheme(
-            prefixStyle: TextStyle(
-              color: focused ? Style.colors.primary : Style.colors.grey,
-            ),
-            suffixStyle: TextStyle(
-              color: focused ? Style.colors.primary : Style.colors.grey,
-            ),
-            labelStyle: TextStyle(
-              color: focused ? Style.colors.primary : Style.colors.grey,
-            ),
-          ),
           fontFamily: Style.fontFamily,
-          hintColor: widget.hintColor ?? Style.colors.grey,
+          primaryColor: Style.colors.primary,
+          hintColor: Style.colors.grey0p5,
         ),
         child: Material(
           color: Colors.transparent,
           child: TextField(
-            style: Style.body2w3,
-            maxLength: widget.type.maxLength,
-            cursorColor: Style.colors.indigo9,
+            cursorColor: Style.colors.primary,
             keyboardAppearance: Style.appBrightness,
             readOnly: widget.readonly,
             autocorrect: widget.autocorrect,
@@ -283,28 +228,31 @@ class _TextInputFieldState extends State<TextInputField> {
             obscureText: obscureText,
             onChanged: widget.onChange,
             onTap: widget.onTap,
+            maxLength: widget.maxLength,
             maxLines: widget.maxLines,
             minLines: widget.minLines,
-            textAlignVertical: TextAlignVertical.center,
-            inputFormatters:
-                widget.type.mask != null ? [widget.type.mask] : null,
+            inputFormatters: widget.type?.inputFormatter,
             decoration: InputDecoration(
-              alignLabelWithHint: widget.minLines > 1,
-              hintText: widget.placeholder,
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Style.colors.background),
+              alignLabelWithHint: widget.minLines! > 1,
+              prefixText:
+                  widget.type == TextInputFieldType.phone ? "+998" : null,
+              prefixStyle: Style.bodyw4,
+              labelText: widget.title ?? widget.placeholder,
+              labelStyle: Style.bodyw4.copyWith(
+                color: focused ? Style.colors.primary : Style.colors.grey5,
               ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Style.colors.background),
+              hintText: widget.hintText,
+              hintStyle: Style.bodyw4.copyWith(color: Style.colors.grey5),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
               ),
-              counterText: "",
-              contentPadding: widget.contentPadding,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              prefixIcon: widget.searchText ? leading : widget.prefixIcon,
-              suffixIcon: !widget.searchText
-                  ? (isObscureTextField ? visibilityIcon : widget.suffixIcon)
-                  : closeIcon,
+              suffixIcon:
+                  isObscureTextField ? visibilityIcon : widget.suffixIcon,
             ),
           ),
         ),
@@ -315,7 +263,15 @@ class _TextInputFieldState extends State<TextInputField> {
     Column column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        textField,
+        Container(
+          height: widget.height,
+          decoration: BoxDecoration(
+            color: widget.backgroundColor ?? Style.colors.grey0p5,
+            borderRadius: Style.border8,
+            border: Border.all(width: borderWidth, color: borderColor),
+          ),
+          child: textField,
+        ),
       ],
     );
 
@@ -333,37 +289,23 @@ class _TextInputFieldState extends State<TextInputField> {
 /// --- Extension ---
 
 extension on TextInputFieldType {
-  MaskTextInputFormatter get mask {
-    MaskTextInputFormatter mask;
+  List<TextInputFormatter>? get inputFormatter {
+    List<TextInputFormatter>? inputFormatter;
     switch (this) {
       case TextInputFieldType.phone:
-        mask = MaskTextInputFormatter(mask: '## ### ## ##');
+        inputFormatter = [MaskTextInputFormatter(mask: ' ## ### ## ##')];
         break;
-      case TextInputFieldType.smsCode:
-        mask = MaskTextInputFormatter(mask: '# # # #');
+
+      case TextInputFieldType.number:
+        inputFormatter = <TextInputFormatter>[
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+        ];
         break;
       default:
-        mask = null;
+        inputFormatter = null;
         break;
     }
 
-    return mask;
-  }
-
-  int get maxLength {
-    int maxLength;
-    switch (this) {
-      case TextInputFieldType.phone:
-        maxLength = 12;
-        break;
-      case TextInputFieldType.smsCode:
-        maxLength = 7;
-        break;
-      default:
-        maxLength = null;
-        break;
-    }
-
-    return maxLength;
+    return inputFormatter;
   }
 }

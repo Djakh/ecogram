@@ -9,7 +9,7 @@ import 'package:sms_autofill/sms_autofill.dart';
 class OtpController extends StatefulWidget {
   final String phone;
 
-  const OtpController({Key key, this.phone}) : super(key: key);
+  const OtpController({Key? key, required this.phone}) : super(key: key);
 
   @override
   _OtpControllerState createState() => _OtpControllerState();
@@ -83,7 +83,7 @@ class _OtpControllerState extends State<OtpController> {
             controller: otpController,
             codeLength: 4,
             onCodeChanged: (code) {
-              if (code.length == 6)
+              if (code != null && code.length == 6)
                 FocusScope.of(context).requestFocus(FocusNode());
             },
           ),
@@ -115,37 +115,36 @@ class _OtpControllerState extends State<OtpController> {
   Widget get errorText =>
       Text(error, style: Style.bodyw5.copyWith(color: Style.colors.red));
 
-  Widget get corps =>  Padding(
-            padding: Style.paddingHor16,
-            child: Column(children: [
-              const SizedBox(height: 40.0),
-              mainText,
-              const SizedBox(height: 16.0),
-              description,
-              const SizedBox(height: 116.0),
-              inputOtp,
-              const SizedBox(height: 64.0),
-              finishButton,
-              const SizedBox(height: 16.0),
-              errorText,
-              const SizedBox(height: 24.0),
-              notReceived,
-            ]),
-          );
-     
+  Widget get corps => Padding(
+        padding: Style.paddingHor16,
+        child: Column(children: [
+          const SizedBox(height: 40.0),
+          mainText,
+          const SizedBox(height: 16.0),
+          description,
+          const SizedBox(height: 116.0),
+          inputOtp,
+          const SizedBox(height: 64.0),
+          finishButton,
+          const SizedBox(height: 16.0),
+          errorText,
+          const SizedBox(height: 24.0),
+          notReceived,
+        ]),
+      );
+
   Widget get view => ListView(
         physics: ClampingScrollPhysics(),
         children: [corps],
       );
 
-  Widget get navigationBar => CupertinoNavigationBar(
-        border: Border(bottom: BorderSide(color: Colors.transparent)),
+  PreferredSizeWidget get appBar => AppBar(
+        title: Text("Page", style: Style.body3w5),
       );
 
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-        navigationBar: navigationBar,
-        backgroundColor: Style.colors.background,
-        child: view,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: appBar,
+        body: view,
       );
 }

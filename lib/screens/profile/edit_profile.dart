@@ -1,4 +1,3 @@
-import 'package:ecogram/cells/bottom_sheet/yes_or_no_sheet.dart';
 import 'package:ecogram/cells/button.dart';
 import 'package:ecogram/cells/text_field.dart';
 import 'package:ecogram/theme/style.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class EditProfileController extends StatefulWidget {
-  const EditProfileController({Key key}) : super(key: key);
+  const EditProfileController({Key? key}) : super(key: key);
   @override
   _EditProfileControllerState createState() => _EditProfileControllerState();
 }
@@ -33,12 +32,17 @@ class _EditProfileControllerState extends State<EditProfileController> {
   /// --- Methods ---
 
   void showSaveSheet() => showCupertinoModalBottomSheet(
-      context: context,
-      builder: (_) => YesOrNoBottomSheet(
-          yesFunction: () {},
-          noFunction: () => Navigator.of(context).maybePop(),
-          mainText: "Save",
-          subText: "Do you really want to save changes?"));
+        context: context,
+        builder: (_) => Material(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 8.0),
+              Text("This is a bottom sheet", style: Style.body3w4),
+            ],
+          ),
+        ),
+      );
 
   /// --- Widgets ---
 
@@ -108,10 +112,9 @@ class _EditProfileControllerState extends State<EditProfileController> {
 
   Widget inputUserFullName(String hint, TextEditingController controller) =>
       Expanded(
-        child: TextInputField.ordinary(
+        child: TextInputField.primary(
           controller: controller,
           placeholder: hint,
-          hintColor: Style.colors.grey6,
         ),
       );
 
@@ -159,8 +162,7 @@ class _EditProfileControllerState extends State<EditProfileController> {
                 children: [
                   categoryType(Icons.person, "Name", nameController),
                   customDivider,
-                  categoryType(
-                      Icons.person, "Surname", surNameController),
+                  categoryType(Icons.person, "Surname", surNameController),
                   customDivider,
                   changeNumberButton
                 ],
@@ -177,9 +179,8 @@ class _EditProfileControllerState extends State<EditProfileController> {
         ),
       );
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-        backgroundColor: Style.colors.grayishDarkBlue,
-        child: SafeArea(
+  Widget build(BuildContext context) => Scaffold(
+        body: SafeArea(
           bottom: false,
           child: view,
         ),

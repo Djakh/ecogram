@@ -15,6 +15,34 @@ class Style {
       colors: [Style.colors.first, Style.colors.secondary]);
 
   /// Border radius templates
+  static BorderRadius get borderVer24 => const BorderRadius.vertical(
+        top: Radius.circular(24.0),
+      );
+
+  static BorderRadius get borderVer36 => const BorderRadius.vertical(
+        top: Radius.circular(36.0),
+      );
+
+  static BorderRadius get border16 => const BorderRadius.all(
+        Radius.circular(16.0),
+      );
+
+  static BorderRadius get border20 => const BorderRadius.all(
+        Radius.circular(20.0),
+      );
+
+  static BorderRadius get borderVer20 => const BorderRadius.vertical(
+        top: Radius.circular(20.0),
+      );
+
+  static BorderRadius get borderTop20 => const BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        topRight: Radius.circular(20.0),
+      );
+
+  static BorderRadius get border25 => const BorderRadius.all(
+        Radius.circular(25.0),
+      );
 
   static BorderRadius get border2 => const BorderRadius.all(
         Radius.circular(2.0),
@@ -56,44 +84,24 @@ class Style {
         Radius.circular(14.0),
       );
 
-  static BorderRadius get border16 => const BorderRadius.all(
-        Radius.circular(16.0),
-      );
-
-  static BorderRadius get borderVer24 => const BorderRadius.vertical(
-        top: Radius.circular(24.0),
-      );
-
-  static BorderRadius get border25 => const BorderRadius.all(
-        Radius.circular(25.0),
-      );
-
-  static BorderRadius get border20 => const BorderRadius.all(
-        Radius.circular(20.0),
-      );
-
-  static BorderRadius get borderVer20 => const BorderRadius.vertical(
-        top: Radius.circular(20.0),
-      );
-
-  static BorderRadius get borderTop20 => const BorderRadius.only(
-        topLeft: Radius.circular(20.0),
-        topRight: Radius.circular(20.0),
-      );
-
-  static BorderRadius get borderVer36 => const BorderRadius.vertical(
-        top: Radius.circular(36.0),
-      );
-
   /// Padding templates
   static EdgeInsets get padding0 => const EdgeInsets.all(0.0);
 
   static EdgeInsets get padding4 => const EdgeInsets.all(4.0);
 
+  static EdgeInsets get paddingVer4 =>
+      const EdgeInsets.symmetric(vertical: 4.0);
+
+  static EdgeInsets get paddingHor34Ver4 =>
+      const EdgeInsets.symmetric(horizontal: 34, vertical: 4.0);
+
   static EdgeInsets get paddingHor4Ver6 =>
       const EdgeInsets.symmetric(horizontal: 4, vertical: 6.0);
 
   static EdgeInsets get padding6 => const EdgeInsets.all(6.0);
+
+  static EdgeInsets get paddingHor6Ver12 =>
+      const EdgeInsets.symmetric(horizontal: 6, vertical: 12.0);
 
   static EdgeInsets get padding8 => const EdgeInsets.all(8.0);
 
@@ -104,6 +112,9 @@ class Style {
 
   static EdgeInsets get paddingHor12 =>
       const EdgeInsets.symmetric(horizontal: 12.0);
+
+  static EdgeInsets get paddingHor12Ver6 =>
+      const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6);
 
   static EdgeInsets get paddingHor12Ver8 =>
       const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8);
@@ -127,6 +138,9 @@ class Style {
   static EdgeInsets get paddingHor16Ver12 =>
       const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12);
 
+  static EdgeInsets get paddingVer16Hor12 =>
+      const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16);
+
   static EdgeInsets get paddingOnlyLeft16 => const EdgeInsets.only(left: 16.0);
 
   static EdgeInsets get paddingOnlyRight16 =>
@@ -140,12 +154,18 @@ class Style {
   static EdgeInsets get paddingHor20 =>
       const EdgeInsets.symmetric(horizontal: 20.0);
 
+  static EdgeInsets get paddingVer20 =>
+      const EdgeInsets.symmetric(horizontal: 20.0);
+
   static EdgeInsets get paddingHor20Ver12 =>
       const EdgeInsets.symmetric(horizontal: 20, vertical: 12.0);
 
   static EdgeInsets get padding22 => const EdgeInsets.all(22.0);
 
   static EdgeInsets get padding24 => const EdgeInsets.all(24.0);
+
+  static EdgeInsets get paddingHor24Ver6 =>
+      const EdgeInsets.symmetric(horizontal: 24, vertical: 6.0);
 
   static EdgeInsets get paddingHor24Ver20 =>
       const EdgeInsets.symmetric(horizontal: 24, vertical: 20.0);
@@ -190,6 +210,13 @@ class Style {
       fontFamily: fontFamily,
       fontWeight: FontWeight.w300);
 
+  static TextStyle get headline3w5 => TextStyle(
+      fontSize: 28.0,
+      letterSpacing: 0.5,
+      color: colors.black,
+      fontFamily: fontFamily,
+      fontWeight: FontWeight.w500);
+
   static TextStyle get headlinew5 => TextStyle(
       fontSize: 24.0,
       letterSpacing: 0.5,
@@ -203,6 +230,14 @@ class Style {
         color: colors.black,
         fontFamily: fontFamily,
         fontWeight: FontWeight.w500,
+      );
+
+  static TextStyle get body3w4 => TextStyle(
+        fontSize: 20.0,
+        letterSpacing: 0.15,
+        color: colors.black,
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
       );
   static TextStyle get body3w3 => TextStyle(
         fontSize: 20.0,
@@ -228,13 +263,6 @@ class Style {
         fontWeight: FontWeight.w300,
       );
 
-  static TextStyle get errorw5 => TextStyle(
-      fontSize: 16.0,
-      letterSpacing: 0.5,
-      color: colors.error,
-      fontFamily: fontFamily,
-      fontWeight: FontWeight.w500);
-
   static TextStyle get bodyw5 => TextStyle(
       fontSize: 16.0,
       letterSpacing: 0.5,
@@ -256,6 +284,13 @@ class Style {
       fontFamily: fontFamily,
       fontWeight: FontWeight.w300);
 
+  static TextStyle get errorw5 => TextStyle(
+      fontSize: 16.0,
+      letterSpacing: 0.5,
+      color: colors.error,
+      fontFamily: fontFamily,
+      fontWeight: FontWeight.w500);
+
   static TextStyle get smallTextw4 => TextStyle(
       fontSize: 14.0,
       letterSpacing: 0.5,
@@ -276,4 +311,11 @@ class Style {
       color: colors.black,
       fontFamily: fontFamily,
       fontWeight: FontWeight.w500);
+
+  static TextStyle get minTextw4 => TextStyle(
+      fontSize: 12.0,
+      letterSpacing: 0.5,
+      color: colors.black,
+      fontFamily: fontFamily,
+      fontWeight: FontWeight.w400);
 }

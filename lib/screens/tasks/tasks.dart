@@ -1,13 +1,13 @@
 import 'package:ecogram/cells/card/task_card.dart';
 import 'package:ecogram/model/category.dart';
 import 'package:ecogram/model/task.dart';
-import 'package:ecogram/screens/tab_pages.dart/tasks/task_details.dart';
+import 'package:ecogram/screens/tasks/task_details.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TasksController extends StatefulWidget {
-  const TasksController({Key key}) : super(key: key);
+  const TasksController({Key? key}) : super(key: key);
 
   @override
   State<TasksController> createState() => _TasksControllerState();
@@ -15,7 +15,7 @@ class TasksController extends StatefulWidget {
 
 class _TasksControllerState extends State<TasksController>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  late TabController _tabController;
 
   /// --- Life Cycles ---
 
@@ -71,7 +71,7 @@ class _TasksControllerState extends State<TasksController>
   Widget get tabBar => Container(
         decoration: BoxDecoration(
           borderRadius: Style.border25,
-          color: Style.colors.faGray,
+          color: Style.colors.grey2,
         ),
         child: TabBar(
             controller: _tabController,
@@ -90,7 +90,7 @@ class _TasksControllerState extends State<TasksController>
                 children: [
                   Icon(listCategoryTab[index].icon),
                   const SizedBox(width: 4.0),
-                  Text(listCategoryTab[index].text),
+                  Text("Category Type"),
                 ],
               )),
             )),

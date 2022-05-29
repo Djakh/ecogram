@@ -8,17 +8,17 @@ const Map<String, dynamic> _DEFAULT_ERRORS = {};
 
 /// Utility class to simplify the use of HTTP errors returned by the backend.
 class RepositoryException implements Exception {
-  http.Response raw;
+  http.Response? raw;
   DateTime creation = DateTime.now();
   String message = _DEFAULT_MESSAGE;
   Map<String, dynamic> errors = _DEFAULT_ERRORS;
-  int status;
-  int errorNumber;
+  int? status;
+  int? errorNumber;
 
   RepositoryException(http.Response errorResponse) {
     this.raw = errorResponse;
 
-    if (errorResponse != null) {
+    if (errorResponse.body.isNotEmpty) {
       this.status = errorResponse.statusCode;
       try {
         // Parse response's body.
@@ -31,7 +31,7 @@ class RepositoryException implements Exception {
       } catch (e) {
         // If the body wasn't a JSON object, then must be a plain text error.
         this.message =
-            errorResponse.body == null ? _DEFAULT_MESSAGE : errorResponse.body;
+            errorResponse.body.isEmpty ? _DEFAULT_MESSAGE : errorResponse.body;
       }
     }
   }
@@ -45,7 +45,7 @@ class RepositoryException implements Exception {
   }
 
   bool unauthorized() {
-    return this.status == 401;
+    return this.status == 401 || this.status == 400;
   }
 
   @override

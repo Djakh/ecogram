@@ -10,7 +10,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class UserInfoController extends StatefulWidget {
   final String phone;
 
-  const UserInfoController({Key key, this.phone}) : super(key: key);
+  const UserInfoController({Key? key, required this.phone}) : super(key: key);
 
   @override
   _UserInfoControllerState createState() => _UserInfoControllerState();
@@ -19,7 +19,7 @@ class UserInfoController extends StatefulWidget {
 class _UserInfoControllerState extends State<UserInfoController> {
   final nameController = TextEditingController();
   final surNameController = TextEditingController();
-  TapGestureRecognizer termsTapRecognizer;
+  late TapGestureRecognizer termsTapRecognizer;
   bool acceptTerms = false;
 
   String error = '';
@@ -67,8 +67,7 @@ class _UserInfoControllerState extends State<UserInfoController> {
   }
 
   void openOtpPage() {
-    if (nameController.text.length == null &&
-        surNameController.text.length == null) {
+    if (nameController.text.isEmpty && surNameController.text.isEmpty) {
       error = 'name or surName shouldn`t be empty';
       setState(() {});
     } else {
@@ -91,10 +90,9 @@ class _UserInfoControllerState extends State<UserInfoController> {
           color: Style.colors.white,
           borderRadius: Style.border8,
         ),
-        child: TextInputField.ordinary(
+        child: TextInputField.primary(
           controller: controller,
           placeholder: hint,
-          hintColor: Style.colors.grey6,
         ),
       );
 
@@ -147,14 +145,13 @@ class _UserInfoControllerState extends State<UserInfoController> {
         children: [corps],
       );
 
-  Widget get navigationBar => CupertinoNavigationBar(
-        border: Border(bottom: BorderSide(color: Colors.transparent)),
+  PreferredSizeWidget get appBar => AppBar(
+        title: Text("Page", style: Style.body3w5),
       );
 
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-        navigationBar: navigationBar,
-        backgroundColor: Style.colors.background,
-        child: view,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: appBar,
+        body: view,
       );
 }
