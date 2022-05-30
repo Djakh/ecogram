@@ -36,12 +36,6 @@ class _HomeControllerState extends State<HomeController> {
     setState(() {});
   }
 
-  void openProfileSettings() {
-    Navigator.of(context).push(
-      CupertinoPageRoute(builder: (_) => ProfileSettingsController()),
-    );
-  }
-
   /// --- Widgets ---
 
   Widget get buildedView {

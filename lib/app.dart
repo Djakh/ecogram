@@ -1,4 +1,6 @@
 import 'package:ecogram/bloc/app.dart';
+import 'package:ecogram/bloc/otp/otp_bloc.dart';
+import 'package:ecogram/bloc/register/register_bloc.dart';
 import 'package:ecogram/routes.dart';
 import 'package:ecogram/screens/intro.dart';
 import 'package:ecogram/switcher.dart';
@@ -67,6 +69,8 @@ class _EcogramAppState extends State<EcogramApp> {
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => AppCubit()),
+          BlocProvider(create: (_) => RegisterBloc()),
+          BlocProvider(create: (_) => OtpBloc()),
         ],
         child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {

@@ -1,3 +1,4 @@
+import 'package:ecogram/bloc/register/register_bloc.dart';
 import 'package:ecogram/cells/button.dart';
 import 'package:ecogram/cells/text_field.dart';
 import 'package:ecogram/routes.dart';
@@ -6,39 +7,39 @@ import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginController extends StatefulWidget {
-  const LoginController({Key? key}) : super(key: key);
+class RegisterController extends StatefulWidget {
+  const RegisterController({Key? key}) : super(key: key);
 
   @override
-  _LoginControllerState createState() => _LoginControllerState();
+  _RegisterControllerState createState() => _RegisterControllerState();
 }
 
-class _LoginControllerState extends State<LoginController> {
+class _RegisterControllerState extends State<RegisterController> {
   final _phoneController = TextEditingController();
-  String error = '';
-  late TapGestureRecognizer _registerLink;
+  String? error;
+  late TapGestureRecognizer _loginLink;
 
   /// --- Life ciycle ---
 
   @override
   void initState() {
-    _registerLink = TapGestureRecognizer()..onTap = openSignUp;
+    _loginLink = TapGestureRecognizer()..onTap = openSignUp;
     super.initState();
   }
 
   @override
   void dispose() {
-    _registerLink.dispose();
+    _loginLink.dispose();
     super.dispose();
   }
 
   /// --- Methods ---
 
   void openSignUp() {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      AppRoutes.register,
-      (_) => false,
+    Navigator.of(context).pushNamed(
+      AppRoutes.login,
     );
   }
 
@@ -47,12 +48,17 @@ class _LoginControllerState extends State<LoginController> {
             builder: (_) => OtpController(phone: _phoneController.text)),
       );
 
-  void submit() async {
+  void register() async {
     if (_phoneController.text.length < 12) {
       error = 'couldn`t sign in with those credentials';
-      setState(() {});
+      context.read<RegisterBloc>().add(ReloadRegisterEvent());
     } else {
-      openOTPage();
+      error = null;
+
+      String phone = "+998" + _phoneController.text.trim().replaceAll(' ', '');
+      context.read<RegisterBloc>().add(RegisterUserEvent({
+            "phoneNumber": phone,
+          }));
     }
   }
 
@@ -79,7 +85,7 @@ class _LoginControllerState extends State<LoginController> {
       );
 
   Widget get mainText => Center(
-        child: Text("Log in",
+        child: Text("Register",
             style: Style.headline5w3.copyWith(
                 color: Style.colors.primary, fontWeight: FontWeight.w500)),
       );
@@ -100,10 +106,15 @@ class _LoginControllerState extends State<LoginController> {
         backgroundColor: Style.colors.grey0p5,
       );
 
-  Widget get finishButton => Button.primary(text: "Log in", onPressed: submit);
+  Widget registerButton(bool unable) => Button.primary(
+        text: "Register",
+        onPressed: unable ? null : register,
+        spinner: unable,
+      );
 
-  Widget get errorText =>
-      Text(error, style: Style.bodyw5.copyWith(color: Style.colors.red));
+  Widget get errorText => error != null
+      ? Text(error!, style: Style.bodyw5.copyWith(color: Style.colors.red))
+      : SizedBox();
 
   Widget get registerLink => Text.rich(
         TextSpan(
@@ -111,33 +122,37 @@ class _LoginControllerState extends State<LoginController> {
           style: Style.body2w5.copyWith(color: Style.colors.grey4),
           children: [
             TextSpan(
-              text: "Register",
+              text: "Log in",
               style: Style.body2w5.copyWith(color: Style.colors.primary),
-              recognizer: _registerLink,
+              recognizer: _loginLink,
             ),
           ],
         ),
         textAlign: TextAlign.center,
       );
 
-  Widget get view => ListView(
-        physics: ClampingScrollPhysics(),
-        padding: Style.padding16,
-        children: [
-          const SizedBox(height: 100.0),
-          mainText,
-          const SizedBox(height: 16.0),
-          description,
-          const SizedBox(height: 48.0),
-          phoneTextInput,
-          const SizedBox(height: 72.0),
-          finishButton,
-          const SizedBox(height: 24.0),
-          registerLink,
-          const SizedBox(height: 16.0),
-          errorText
-        ],
-      );
+  Widget get view => BlocConsumer<RegisterBloc, RegisterState>(
+      listener: (_, state) {
+        if (state is RegisterCompliedState) openOTPage();
+      },
+      builder: (context, state) => ListView(
+            physics: ClampingScrollPhysics(),
+            padding: Style.padding16,
+            children: [
+              const SizedBox(height: 100.0),
+              mainText,
+              const SizedBox(height: 16.0),
+              description,
+              const SizedBox(height: 48.0),
+              phoneTextInput,
+              const SizedBox(height: 72.0),
+              registerButton(state is RegisterLoadingState),
+              const SizedBox(height: 24.0),
+              registerLink,
+              const SizedBox(height: 16.0),
+              errorText
+            ],
+          ));
 
   @override
   Widget build(BuildContext context) => Scaffold(

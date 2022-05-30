@@ -184,7 +184,7 @@ extension on ButtonType {
         break;
 
       case ButtonType.text:
-        color = Style.colors.primary.withOpacity(0.2);
+        color = Style.colors.background;
         break;
 
       case ButtonType.delete:
@@ -205,7 +205,7 @@ extension on ButtonType {
     switch (this) {
       case ButtonType.primary:
         shape = RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(99.0),
         );
         break;
 
