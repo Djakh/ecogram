@@ -29,7 +29,7 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
 
   Widget detailsTitle(String text) => Text(
         text,
-        style: Style.body2w5.copyWith(color: Style.colors.white),
+        style: Style.body2w6.copyWith(color: Style.colors.white),
       );
 
   Widget iconHeader(IconData icon, Function function) => GestureDetector(
@@ -47,7 +47,7 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
           iconHeader(Icons.arrow_back_rounded, () => Navigator.pop(context)),
           Text(
             "Details",
-            style: Style.body2w5.copyWith(color: Style.colors.white),
+            style: Style.body2w6.copyWith(color: Style.colors.white),
           ),
           iconHeader(Icons.file_upload_outlined, () {}),
         ],
@@ -137,7 +137,7 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
             const SizedBox(height: 21.0),
             Text(
               "Same yearly impact as",
-              style: Style.body2w5,
+              style: Style.body2w6,
             ),
             const SizedBox(height: 16.0),
             detailsImageBox(

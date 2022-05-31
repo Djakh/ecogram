@@ -1,55 +1,36 @@
-
-
 class Task {
-  String? headText;
-  String? describing;
-  String? image;
+  int? id;
+  String? name;
+  String? description;
+  String? iconImage;
 
-  Task({this.headText, this.describing, this.image});
+  String? image;
+  Task({this.id, this.name, this.description, this.image, this.iconImage});
+  factory Task.fromJson(Map<String, dynamic> json) => Task(
+        id: json["id"] ?? null,
+        name: json["name"] ?? null,
+        description: json["description"] ?? null,
+        iconImage: json["iconImage"] ?? null,
+        image: json["image"] ?? null,
+      );
+
+  Map<String, dynamic> get toJson => {
+        "name": this.name,
+        "description": this.description,
+        "iconImage": this.iconImage,
+        "image": this.image,
+      };
 }
 
 List<Task> listDataTask = [
   Task(
-    headText: "Bin to win",
-    describing: "Recycling makes you feel good on the inside!",
+    name: "Bin to win",
+    description: "Recycling makes you feel good on the inside!",
     image: "assets/images/recycle.png",
   ),
   Task(
-    headText: "Bottle rocket",
-    describing: "Many brands of bottled water are really just tap...",
+    name: "Bottle rocket",
+    description: "Many brands of bottled water are really just tap...",
     image: "assets/images/bottle.png",
-  ),
-  Task(
-    headText: "Blazing saddles",
-    describing: "There’s nothing like riding a bike. The child...",
-    image: "assets/images/bike.png",
-  ),
-  Task(
-    headText: "Grab bag",
-    describing: "Get a reusable bag (or save a used shopping ...",
-    image: "assets/images/bag.png",
-  ),
-  Task(
-    headText: "Lights out",
-    describing: "Turn off the lights when you leave a room. Rem...",
-    image: "assets/images/light.png",
-  ),
-];
-
-List<Task> listDataChallangeTask = [
-  Task(
-    headText: "Bin to win",
-    describing: "Recycling makes you feel good on the inside!",
-    image: "assets/images/challange0.jpeg",
-  ),
-  Task(
-    headText: "Bottle rocket",
-    describing: "Many brands of bottled water are really just tap...",
-    image: "assets/images/challange1.jpeg",
-  ),
-  Task(
-    headText: "Blazing saddles",
-    describing: "There’s nothing like riding a bike. The child...",
-    image: "assets/images/challange2.jpg",
   ),
 ];

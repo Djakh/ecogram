@@ -57,7 +57,7 @@ class _UserInfoControllerState extends State<UserInfoController> {
             ),
           ),
           const SizedBox(height: 8.0),
-          Text("Public offer", style: Style.body2w5),
+          Text("Public offer", style: Style.body2w6),
           const SizedBox(height: 12.0),
           Divider(),
           Expanded(child: Text("Some Texts here", style: Style.bodyw3)),

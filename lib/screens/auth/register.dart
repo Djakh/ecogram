@@ -119,11 +119,11 @@ class _RegisterControllerState extends State<RegisterController> {
   Widget get registerLink => Text.rich(
         TextSpan(
           text: "Don't have an account? ",
-          style: Style.body2w5.copyWith(color: Style.colors.grey4),
+          style: Style.body2w6.copyWith(color: Style.colors.grey4),
           children: [
             TextSpan(
               text: "Log in",
-              style: Style.body2w5.copyWith(color: Style.colors.primary),
+              style: Style.body2w6.copyWith(color: Style.colors.primary),
               recognizer: _loginLink,
             ),
           ],

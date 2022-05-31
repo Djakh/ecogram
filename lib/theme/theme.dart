@@ -5,7 +5,7 @@ final theme = ThemeData(
     brightness: Style.appBrightness,
     appBarTheme: AppBarTheme(
         elevation: 0,
-        backgroundColor: Style.colors.background,
+        backgroundColor: Style.colors.blue,
         centerTitle: true,
         iconTheme: IconThemeData(color: Style.colors.black, size: 24)),
     primaryColor: Style.colors.primary,
