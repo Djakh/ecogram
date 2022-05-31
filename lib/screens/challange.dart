@@ -1,7 +1,10 @@
+import 'package:ecogram/cells/card/task_card.dart';
+import 'package:ecogram/model/category.dart';
 import 'package:ecogram/model/task.dart';
 import 'package:ecogram/screens/tasks/task_details.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ChallangeController extends StatefulWidget {
   const ChallangeController({Key? key}) : super(key: key);
@@ -10,16 +13,21 @@ class ChallangeController extends StatefulWidget {
   State<ChallangeController> createState() => _ChallangeControllerState();
 }
 
-class _ChallangeControllerState extends State<ChallangeController> {
+class _ChallangeControllerState extends State<ChallangeController>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
   /// --- Life Cycles ---
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(vsync: this, length: 3);
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -33,65 +41,77 @@ class _ChallangeControllerState extends State<ChallangeController> {
 
   /// --- Widgets ---
 
-  Widget challangeImage(String image) => ClipRRect(
-        borderRadius: Style.border12,
-        child: Container(
-          height: 250,
-          width: double.infinity,
-          decoration: BoxDecoration(borderRadius: Style.border12),
-          child: Image.asset(image, fit: BoxFit.cover),
+  Widget listTask(List<Task> listTask) => ListView.separated(
+        itemCount: listTask.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+        itemBuilder: (_, index) => TaskCard(
+          task: listTask[index],
+          function: () => openTaskDetailsPage(listTask[index]),
         ),
       );
 
-  Widget headTitle(text) => Text(
-        text,
-        style: Style.body2w5,
-      );
-  Widget descriptionTitle(text) => Text(
-        text,
-        style: Style.bodyw3,
-      );
-  Widget challangeBox(Task task) => Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: Style.border12,
-            color: Style.colors.blue.withOpacity(0.7)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            challangeImage("assets/images/bike.png"),
-            Padding(
-              padding: Style.padding16,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 4),
-                  headTitle(task.headText),
-                  const SizedBox(height: 4),
-                  descriptionTitle(task.describing),
-                ],
-              ),
-            )
-          ],
-        ),
+  List<Widget> get getView => List<Widget>.generate(
+        listCategoryTab.length,
+        (index) => listTask(listDataTask),
       );
 
-  Widget get view => Expanded(
-        child: ListView.separated(
-          itemCount: listDataChallangeTask.length,
-          scrollDirection: Axis.vertical,
-          padding: Style.paddingHor16,
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          separatorBuilder: (_, __) => const SizedBox(height: 12.0),
-          itemBuilder: (_, index) => challangeBox(
-            listDataChallangeTask[index],
+  Widget get tabBar => TabBar(
+          controller: _tabController,
+          labelPadding: Style.paddingHor16,
+          isScrollable: true,
+          indicator: BoxDecoration(
+            borderRadius: Style.border25,
+            color: Style.colors.primary,
           ),
+          unselectedLabelColor: Style.colors.black,
+          labelStyle: Style.bodyw5,
+          tabs: [
+            Tab(
+              text: "Challanges",
+            ),
+            Tab(
+              text: "Folllowing",
+            ),
+            Tab(
+              text: "Everyone",
+            ),
+          ]);
+
+  Widget get tabBarBox => Container(
+      decoration: BoxDecoration(
+        borderRadius: Style.border25,
+        color: Style.colors.grey1,
+      ),
+      child: tabBar);
+
+  Widget get tabView => Expanded(
+        child: TabBarView(controller: _tabController, children: [
+          SizedBox(),
+          SizedBox(),
+          SizedBox(),
+        ]),
+      );
+
+  Widget get view => Padding(
+        padding: Style.padding16,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 10),
+            tabBarBox,
+            const SizedBox(height: 32),
+            tabView
+          ],
         ),
       );
 
   @override
   Widget build(BuildContext context) {
-    return view;
+    return Scaffold(
+      body: SafeArea(child: view),
+    );
   }
 }

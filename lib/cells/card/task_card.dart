@@ -16,7 +16,7 @@ class TaskCard extends StatelessWidget {
           children: [
             Text(
               "Head text",
-              style: Style.body2w5,
+              style: Style.body2w6,
               overflow: TextOverflow.ellipsis,
             ),
             Text(

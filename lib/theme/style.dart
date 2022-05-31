@@ -247,12 +247,12 @@ class Style {
         fontWeight: FontWeight.w300,
       );
 
-  static TextStyle get body2w5 => TextStyle(
+  static TextStyle get body2w6 => TextStyle(
         fontSize: 18.0,
         letterSpacing: 0.15,
         color: colors.black,
         fontFamily: fontFamily,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       );
 
   static TextStyle get body2w3 => TextStyle(

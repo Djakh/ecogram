@@ -41,16 +41,6 @@ class _TasksControllerState extends State<TasksController>
 
   /// --- Widgets ---
 
-  Widget test(String text) => Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      );
-
   Widget listTask(List<Task> listTask) => ListView.separated(
         itemCount: listTask.length,
         scrollDirection: Axis.vertical,
@@ -68,50 +58,86 @@ class _TasksControllerState extends State<TasksController>
         (index) => listTask(listDataTask),
       );
 
-  Widget get tabBar => Container(
-        decoration: BoxDecoration(
-          borderRadius: Style.border25,
-          color: Style.colors.grey2,
-        ),
-        child: TabBar(
-            controller: _tabController,
-            labelPadding: Style.paddingHor16,
-            isScrollable: true,
-            indicator: BoxDecoration(
-              borderRadius: Style.border25,
-              color: Style.colors.primary,
+  Widget get tabBar => TabBar(
+          controller: _tabController,
+          labelPadding: Style.paddingHor16,
+          isScrollable: true,
+          indicator: BoxDecoration(
+            borderRadius: Style.border25,
+            color: Style.colors.primary,
+          ),
+          unselectedLabelColor: Style.colors.black,
+          labelStyle: Style.bodyw5,
+          tabs: [
+            Tab(
+              text: "Trending",
             ),
-            unselectedLabelColor: Style.colors.black,
-            labelStyle: Style.bodyw5,
-            tabs: List<Widget>.generate(
-              listCategoryTab.length,
-              (index) => Tab(
-                  child: Row(
-                children: [
-                  Icon(listCategoryTab[index].icon),
-                  const SizedBox(width: 4.0),
-                  Text("Category Type"),
-                ],
-              )),
-            )),
+            Tab(
+              text: "Folllowing",
+            ),
+            Tab(
+              text: "Folllowing",
+            ),
+            Tab(
+              text: "Folllowing",
+            ),
+            Tab(
+              text: "Folllowing",
+            ),
+            Tab(
+              text: "Folllowing",
+            ),
+            Tab(
+              text: "Folllowing",
+            ),
+          ]);
+
+  Widget get tabBarBox => Container(
+      decoration: BoxDecoration(
+        borderRadius: Style.border25,
+        color: Style.colors.grey1,
+      ),
+      child: tabBar);
+
+  Widget get tabView => Expanded(
+        child: TabBarView(controller: _tabController, children: [
+          listTask(listDataTask),
+          listTask(listDataTask),
+          listTask(listDataTask),
+          listTask(listDataTask),
+          listTask(listDataTask),
+          listTask(listDataTask),
+          listTask(listDataTask),
+        ]),
       );
+
+  Widget get view => Padding(
+        padding: Style.padding16,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            tabBarBox,
+            const SizedBox(height: 32),
+            tabView
+          ],
+        ),
+      );
+
+  PreferredSizeWidget get appBar => PreferredSize(
+      preferredSize: Size.fromHeight(50.0), // here the desired height
+      child: AppBar(
+        title: Text(
+          "Tasks",
+          style: Style.body2w6.copyWith(color: Style.colors.white),
+        ),
+      ));
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: Style.paddingHor16,
-        child: Column(
-          children: [
-            const SizedBox(height: 4),
-            tabBar,
-            const SizedBox(height: 16),
-            Expanded(
-              child: TabBarView(controller: _tabController, children: getView),
-            ),
-          ],
-        ),
-      ),
+    return Scaffold(
+      appBar: appBar,
+      body: SafeArea(child: view),
     );
   }
 }

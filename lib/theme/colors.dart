@@ -27,7 +27,7 @@ class AppColors {
   final Color textGrey = const Color(0xff4f4f4f);
   final Color grey = const Color(0xFF9E9E9E);
   final Color grey0p5 = const Color(0xFFF3F3F3);
-  final Color grey1 = const Color(0xFFE6E8EA);
+  final Color grey1 = const Color(0xFFF2F2F2);
   final Color grey2 = const Color(0xFFDCDDE1);
   final Color grey3 = const Color(0xFFC4C6CC);
   final Color grey4 = const Color(0xFF9398A1);

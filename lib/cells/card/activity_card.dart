@@ -8,7 +8,7 @@ class ActivityCard extends StatelessWidget {
 
   Widget get likeTitle => Row(
         children: [
-          Text("0 likes", style: Style.body2w5),
+          Text("0 likes", style: Style.body2w6),
           Icon(Icons.favorite, color: Style.colors.red)
         ],
       );

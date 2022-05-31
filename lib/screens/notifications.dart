@@ -1,5 +1,5 @@
 import 'package:ecogram/theme/style.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class NotificationsController extends StatefulWidget {
   const NotificationsController({Key? key}) : super(key: key);
@@ -12,11 +12,11 @@ class NotificationsController extends StatefulWidget {
 class _NotificationsControllerState extends State<NotificationsController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
+    return Scaffold(
+      body: Center(
         child: Text(
           "Notification",
-          style: Style.body2w5,
+          style: Style.body2w6,
         ),
       ),
     );
