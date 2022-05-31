@@ -1,3 +1,4 @@
+import 'package:ecogram/cells/button.dart';
 import 'package:ecogram/cells/card/task_card.dart';
 import 'package:ecogram/model/category.dart';
 import 'package:ecogram/model/task.dart';
@@ -22,7 +23,7 @@ class _TasksControllerState extends State<TasksController>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 7);
+    _tabController = TabController(vsync: this, length: 3);
   }
 
   @override
@@ -57,6 +58,14 @@ class _TasksControllerState extends State<TasksController>
         listCategoryTab.length,
         (index) => listTask(listDataTask),
       );
+  Widget tab(IconData icon, String text) => Tab(
+          child: Row(
+        children: [
+          Icon(icon),
+          const SizedBox(width: 4.0),
+          Text(text),
+        ],
+      ));
 
   Widget get tabBar => TabBar(
           controller: _tabController,
@@ -69,27 +78,9 @@ class _TasksControllerState extends State<TasksController>
           unselectedLabelColor: Style.colors.black,
           labelStyle: Style.bodyw5,
           tabs: [
-            Tab(
-              text: "Trending",
-            ),
-            Tab(
-              text: "Folllowing",
-            ),
-            Tab(
-              text: "Folllowing",
-            ),
-            Tab(
-              text: "Folllowing",
-            ),
-            Tab(
-              text: "Folllowing",
-            ),
-            Tab(
-              text: "Folllowing",
-            ),
-            Tab(
-              text: "Folllowing",
-            ),
+            tab(Icons.backpack, "Recent"),
+            tab(Icons.star, "Featured"),
+            tab(Icons.shopping_cart, "Shopping"),
           ]);
 
   Widget get tabBarBox => Container(
@@ -101,10 +92,6 @@ class _TasksControllerState extends State<TasksController>
 
   Widget get tabView => Expanded(
         child: TabBarView(controller: _tabController, children: [
-          listTask(listDataTask),
-          listTask(listDataTask),
-          listTask(listDataTask),
-          listTask(listDataTask),
           listTask(listDataTask),
           listTask(listDataTask),
           listTask(listDataTask),
@@ -127,10 +114,25 @@ class _TasksControllerState extends State<TasksController>
   PreferredSizeWidget get appBar => PreferredSize(
       preferredSize: Size.fromHeight(50.0), // here the desired height
       child: AppBar(
+        leading: Button.icon(
+          onPressed: () {},
+          icon: Icons.search,
+          iconColor: Style.colors.black,
+          color: Style.colors.background,
+        ),
         title: Text(
           "Tasks",
-          style: Style.body2w6.copyWith(color: Style.colors.white),
+          style: Style.body2w6,
         ),
+        actions: [
+          Button.icon(
+            onPressed: () {},
+            icon: Icons.category_outlined,
+            iconColor: Style.colors.black,
+            color: Style.colors.background,
+            minWidth: 0.0,
+          ),
+        ],
       ));
 
   @override
