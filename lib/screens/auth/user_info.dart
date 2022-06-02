@@ -100,7 +100,7 @@ class _UserInfoControllerState extends State<UserInfoController> {
       Button.primary(text: "Confirm", onPressed: openOtpPage);
 
   Widget get errorText =>
-      Text(error, style: Style.bodyw5.copyWith(color: Style.colors.red));
+      Text(error, style: Style.bodyw6.copyWith(color: Style.colors.red));
 
   Widget get privacyPolicy => RichText(
         textAlign: TextAlign.center,
@@ -112,7 +112,7 @@ class _UserInfoControllerState extends State<UserInfoController> {
             ),
             TextSpan(
                 text: 'Privacy Policy',
-                style: Style.bodyw5.copyWith(
+                style: Style.bodyw6.copyWith(
                     decoration: TextDecoration.underline,
                     color: Style.colors.primary),
                 recognizer: termsTapRecognizer),

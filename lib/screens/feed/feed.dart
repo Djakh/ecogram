@@ -45,7 +45,7 @@ class _FeedControllerState extends State<FeedController>
             color: Style.colors.primary,
           ),
           unselectedLabelColor: Style.colors.black,
-          labelStyle: Style.bodyw5,
+          labelStyle: Style.bodyw6,
           tabs: [
             Tab(
               text: "Trending",

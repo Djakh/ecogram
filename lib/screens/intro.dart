@@ -126,7 +126,7 @@ class _IntroControllerState extends State<IntroController> {
   Widget get skipTextButton => Button.text(
         onPressed: () => changePage(pages.length, swipe: true),
         text: "Skip",
-        style: Style.bodyw5.copyWith(color: Style.colors.primary),
+        style: Style.bodyw6.copyWith(color: Style.colors.primary),
       );
 
   Widget get rowSkipNextButtons => Row(

@@ -115,8 +115,6 @@ class _CompleteTaskControllerState extends State<CompleteTaskController> {
           width: width,
           fit: BoxFit.cover,
           imageUrl: image ?? "http://",
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              CircularProgressIndicator(value: downloadProgress.progress),
           errorWidget: (_, __, ___) => Container(
             height: height,
             width: width,

@@ -113,7 +113,7 @@ class _RegisterControllerState extends State<RegisterController> {
       );
 
   Widget get errorText => error != null
-      ? Text(error!, style: Style.bodyw5.copyWith(color: Style.colors.red))
+      ? Text(error!, style: Style.bodyw6.copyWith(color: Style.colors.red))
       : SizedBox();
 
   Widget get registerLink => Text.rich(

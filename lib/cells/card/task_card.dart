@@ -37,8 +37,6 @@ class TaskCard extends StatelessWidget {
         width: 70,
         fit: BoxFit.contain,
         imageUrl: task.iconImage ?? "http://",
-        progressIndicatorBuilder: (context, url, downloadProgress) =>
-            CircularProgressIndicator(value: downloadProgress.progress),
         errorWidget: (_, __, ___) => Icon(
           Icons.local_drink_outlined,
           size: 30,

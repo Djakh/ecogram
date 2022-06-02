@@ -67,7 +67,7 @@ class _ChallangeControllerState extends State<ChallangeController>
             color: Style.colors.primary,
           ),
           unselectedLabelColor: Style.colors.black,
-          labelStyle: Style.bodyw5,
+          labelStyle: Style.bodyw6,
           tabs: [
             Tab(
               text: "Challanges",

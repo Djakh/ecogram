@@ -114,14 +114,14 @@ class _OtpControllerState extends State<OtpController> {
               onPressed: () {},
               text: "Resend the code",
               height: 10,
-              style: Style.bodyw5.copyWith(
+              style: Style.bodyw6.copyWith(
                   decoration: TextDecoration.underline,
                   color: Style.colors.primary))
         ],
       );
 
   Widget get errorText =>
-      Text(error, style: Style.bodyw5.copyWith(color: Style.colors.red));
+      Text(error, style: Style.bodyw6.copyWith(color: Style.colors.red));
 
   Widget get view => BlocConsumer<OtpBloc, OtpState>(
         listener: (context, state) {

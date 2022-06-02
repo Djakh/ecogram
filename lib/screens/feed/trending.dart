@@ -26,11 +26,6 @@ class _TrendingControllerState extends State<TrendingController>
 
   /// --- Methods ---
 
-  void openTaskDetails(Task task) {
-    Navigator.of(context).push(
-      CupertinoPageRoute(builder: (_) => TaskDetailsController(task: task)),
-    );
-  }
 
   /// --- Widgets ---
 
