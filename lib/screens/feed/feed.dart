@@ -1,3 +1,6 @@
+import 'package:ecogram/cells/button.dart';
+import 'package:ecogram/screens/feed/following.dart';
+import 'package:ecogram/screens/feed/trending.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/material.dart';
 
@@ -61,25 +64,38 @@ class _FeedControllerState extends State<FeedController>
 
   Widget get tabView => Expanded(
         child: TabBarView(
-            controller: _tabController, children: [SizedBox(), SizedBox()]),
+            controller: _tabController,
+            children: [TrendingController(), FollowingController()]),
       );
 
   Widget get view => Padding(
         padding: Style.padding16,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            tabBarBox,
-            const SizedBox(height: 32),
-            tabView
-          ],
+          children: [tabBarBox, const SizedBox(height: 32), tabView],
         ),
       );
-
+  PreferredSizeWidget get appBar => PreferredSize(
+      preferredSize: Size.fromHeight(50.0), // here the desired height
+      child: AppBar(
+        title: Text(
+          "Feed",
+          style: Style.body2w6,
+        ),
+        actions: [
+          Button.icon(
+            onPressed: () {},
+            icon: Icons.favorite_outline,
+            iconColor: Style.colors.black,
+            color: Style.colors.background,
+            minWidth: 0.0,
+          ),
+        ],
+      ));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       body: SafeArea(child: view),
     );
   }
