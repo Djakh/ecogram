@@ -82,7 +82,7 @@ class _HomeControllerState extends State<HomeController> {
   CupertinoTabBar get tabBar => CupertinoTabBar(
         border: Border(
             top: BorderSide(
-          color: Style.colors.black.withOpacity(0.3),
+          color: Style.colors.grey.withOpacity(0.3),
           width: 1.0,
         )),
         iconSize: 28.0,

@@ -164,6 +164,8 @@ class Style {
 
   static EdgeInsets get padding24 => const EdgeInsets.all(24.0);
 
+  static EdgeInsets get padding28 => const EdgeInsets.all(28.0);
+
   static EdgeInsets get paddingHor24Ver6 =>
       const EdgeInsets.symmetric(horizontal: 24, vertical: 6.0);
 
@@ -217,12 +219,12 @@ class Style {
       fontFamily: fontFamily,
       fontWeight: FontWeight.w500);
 
-  static TextStyle get headlinew5 => TextStyle(
+  static TextStyle get headlinew6 => TextStyle(
       fontSize: 24.0,
       letterSpacing: 0.5,
       color: colors.black,
       fontFamily: fontFamily,
-      fontWeight: FontWeight.w500);
+      fontWeight: FontWeight.w600);
 
   static TextStyle get body3w5 => TextStyle(
         fontSize: 20.0,
@@ -253,6 +255,13 @@ class Style {
         color: colors.black,
         fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
+      );
+  static TextStyle get body2w4 => TextStyle(
+        fontSize: 18.0,
+        letterSpacing: 0.15,
+        color: colors.black,
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
       );
 
   static TextStyle get body2w3 => TextStyle(
