@@ -97,7 +97,7 @@ class _IntroControllerState extends State<IntroController> {
             children: [
               Text(title,
                   style:
-                      Style.headlinew5.copyWith(fontWeight: FontWeight.w500)),
+                      Style.headlinew6.copyWith(fontWeight: FontWeight.w500)),
               const SizedBox(height: 16.0),
               Padding(
                 padding: Style.paddingHor40,

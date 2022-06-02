@@ -32,21 +32,17 @@ class TaskCard extends StatelessWidget {
         ),
       );
 
-  Widget get cardImage => Container(
+  Widget get cardImage => CachedNetworkImage(
         height: 70,
         width: 70,
-        child: CachedNetworkImage(
-          height: 70,
-          width: 70,
-          fit: BoxFit.cover,
-          imageUrl: task.iconImage ?? "",
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              CircularProgressIndicator(value: downloadProgress.progress),
-          errorWidget: (_, __, ___) => Icon(
-            Icons.local_drink_outlined,
-            size: 30,
-            color: Style.colors.black,
-          ),
+        fit: BoxFit.contain,
+        imageUrl: task.iconImage ?? "",
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            CircularProgressIndicator(value: downloadProgress.progress),
+        errorWidget: (_, __, ___) => Icon(
+          Icons.local_drink_outlined,
+          size: 30,
+          color: Style.colors.black,
         ),
       );
 

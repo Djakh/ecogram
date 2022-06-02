@@ -34,7 +34,7 @@ class _TasksControllerState extends State<TasksController>
 
   /// --- Methods ---
 
-  void openTaskDetailsPage(Task task) {
+  void openTaskDetails(Task task) {
     Navigator.of(context).push(
       CupertinoPageRoute(builder: (_) => TaskDetailsController(task: task)),
     );
@@ -50,7 +50,7 @@ class _TasksControllerState extends State<TasksController>
         separatorBuilder: (_, __) => const SizedBox(height: 12.0),
         itemBuilder: (_, index) => TaskCard(
           task: listTask[index],
-          function: () => openTaskDetailsPage(listTask[index]),
+          function: () => openTaskDetails(listTask[index]),
         ),
       );
 

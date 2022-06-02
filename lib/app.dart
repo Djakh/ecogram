@@ -3,6 +3,7 @@ import 'package:ecogram/bloc/otp/otp_bloc.dart';
 import 'package:ecogram/bloc/register/register_bloc.dart';
 import 'package:ecogram/routes.dart';
 import 'package:ecogram/screens/intro.dart';
+import 'package:ecogram/size_confiig.dart';
 import 'package:ecogram/switcher.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:ecogram/theme/theme.dart';
@@ -66,34 +67,38 @@ class _EcogramAppState extends State<EcogramApp> {
           state.showIntro ? const IntroController() : SwitcherController());
 
   @override
-  Widget build(BuildContext context) => MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => AppCubit()),
-          BlocProvider(create: (_) => RegisterBloc()),
-          BlocProvider(create: (_) => OtpBloc()),
-        ],
-        child: BlocBuilder<AppCubit, AppState>(
-          builder: (context, state) {
-            return MaterialApp(
-                theme: theme,
-                color: Style.colors.white,
-                localizationsDelegates: const [
-                  DefaultMaterialLocalizations.delegate,
-                  DefaultCupertinoLocalizations.delegate,
-                  DefaultWidgetsLocalizations.delegate,
-                ],
-                onGenerateRoute: Application.router?.generator,
-                home: PageTransitionSwitcher(
-                  duration: Duration(seconds: 1),
-                  transitionBuilder: (child, animation, secondaryAnimation) =>
-                      FadeThroughTransition(
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    child: child,
-                  ),
-                  child: isLoaded ? loader : switcher,
-                ));
-          },
-        ),
-      );
+  Widget build(BuildContext context) =>
+      LayoutBuilder(builder: (context, constraints) {
+        SizeConfig().init(constraints);
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => AppCubit()),
+            BlocProvider(create: (_) => RegisterBloc()),
+            BlocProvider(create: (_) => OtpBloc()),
+          ],
+          child: BlocBuilder<AppCubit, AppState>(
+            builder: (context, state) {
+              return MaterialApp(
+                  theme: theme,
+                  color: Style.colors.white,
+                  localizationsDelegates: const [
+                    DefaultMaterialLocalizations.delegate,
+                    DefaultCupertinoLocalizations.delegate,
+                    DefaultWidgetsLocalizations.delegate,
+                  ],
+                  onGenerateRoute: Application.router?.generator,
+                  home: PageTransitionSwitcher(
+                    duration: Duration(seconds: 1),
+                    transitionBuilder: (child, animation, secondaryAnimation) =>
+                        FadeThroughTransition(
+                      animation: animation,
+                      secondaryAnimation: secondaryAnimation,
+                      child: child,
+                    ),
+                    child: isLoaded ? loader : switcher,
+                  ));
+            },
+          ),
+        );
+      });
 }
