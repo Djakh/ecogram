@@ -51,11 +51,13 @@ List<Task> listDataTask = [
   Task(
     name: "Bin to win",
     description: "Recycling makes you feel good on the inside!",
-    image: "assets/images/recycle.png",
+    image:
+        "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/newscms/2019_11/1417023/how-to-clean-water-bottle-today-main-190312.jpg",
   ),
   Task(
     name: "Bottle rocket",
     description: "Many brands of bottled water are really just tap...",
-    image: "assets/images/bottle.png",
+    image:
+        "https://media.greenmatters.com/brand-img/YwKiQ2tfV/0x0/trashtag-clean-up-litter-1552318521531.jpg",
   ),
 ];
