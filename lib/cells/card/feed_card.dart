@@ -13,8 +13,6 @@ class FeedCard extends StatelessWidget {
   Widget image(String? image, IconData icon) => CachedNetworkImage(
         fit: BoxFit.cover,
         imageUrl: image ?? "http://",
-        progressIndicatorBuilder: (context, url, downloadProgress) =>
-            CircularProgressIndicator(value: downloadProgress.progress),
         errorWidget: (_, __, ___) => Icon(
           icon,
           size: 30,
@@ -37,7 +35,7 @@ class FeedCard extends StatelessWidget {
           children: [
             Text(
               'Shokhjakhon Bositkhonov',
-              style: Style.bodyw5,
+              style: Style.bodyw6,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 10),

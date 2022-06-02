@@ -1,3 +1,6 @@
+import 'package:ecogram/cells/button.dart';
+import 'package:ecogram/screens/profile/activity.dart';
+import 'package:ecogram/screens/profile/stats.dart';
 import 'package:ecogram/theme/style.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +33,6 @@ class _ProfileControllerState extends State<ProfileController>
 
   /// --- Methods ---
 
-  void submit() {}
-
   /// --- Widgets ---
 
   Widget get circleCamera => CircleAvatar(
@@ -51,13 +52,13 @@ class _ProfileControllerState extends State<ProfileController>
             color: Style.colors.primary,
           ),
           unselectedLabelColor: Style.colors.black,
-          labelStyle: Style.bodyw5,
+          labelStyle: Style.bodyw6,
           tabs: [
             Tab(
-              text: "Trending",
+              text: "Stats",
             ),
             Tab(
-              text: "Folllowing",
+              text: "Activity",
             )
           ]);
 
@@ -70,7 +71,8 @@ class _ProfileControllerState extends State<ProfileController>
 
   Widget get tabView => Expanded(
         child: TabBarView(
-            controller: _tabController, children: [SizedBox(), SizedBox()]),
+            controller: _tabController,
+            children: [StatsController(), ActivityController()]),
       );
 
   Widget get view => Padding(
@@ -89,9 +91,27 @@ class _ProfileControllerState extends State<ProfileController>
         ),
       );
 
+  PreferredSizeWidget get appBar => PreferredSize(
+      preferredSize: Size.fromHeight(50.0), // here the desired height
+      child: AppBar(
+        title: Text(
+          "Feed",
+          style: Style.body2w6,
+        ),
+        actions: [
+          Button.icon(
+            onPressed: () {},
+            icon: Icons.settings_outlined,
+            iconColor: Style.colors.black,
+            color: Style.colors.white,
+            minWidth: 0.0,
+          ),
+        ],
+      ));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       body: SafeArea(child: view),
     );
   }

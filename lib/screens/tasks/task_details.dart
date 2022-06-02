@@ -62,8 +62,6 @@ class _TaskDetailsControllerState extends State<TaskDetailsController> {
           width: width,
           fit: BoxFit.cover,
           imageUrl: image ?? "http://",
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              CircularProgressIndicator(value: downloadProgress.progress),
           errorWidget: (_, __, ___) => Icon(
             Icons.local_drink_outlined,
             size: 30,

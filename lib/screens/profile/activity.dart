@@ -1,7 +1,6 @@
-import 'package:ecogram/cells/card/activity_card.dart';
+import 'package:ecogram/cells/card/feed_card.dart';
 import 'package:ecogram/model/task.dart';
 import 'package:ecogram/screens/tasks/task_details.dart';
-import 'package:ecogram/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 
 class ActivityController extends StatefulWidget {
@@ -11,7 +10,8 @@ class ActivityController extends StatefulWidget {
   State<ActivityController> createState() => _ActivityControllerState();
 }
 
-class _ActivityControllerState extends State<ActivityController> {
+class _ActivityControllerState extends State<ActivityController>
+    with SingleTickerProviderStateMixin {
   /// --- Life Cycles ---
 
   @override
@@ -26,39 +26,23 @@ class _ActivityControllerState extends State<ActivityController> {
 
   /// --- Methods ---
 
-  void openTaskDetailsPage(Task task) {
-    Navigator.of(context).push(
-      CupertinoPageRoute(builder: (_) => TaskDetailsController(task: task)),
-    );
-  }
-
   /// --- Widgets ---
 
-  Widget get headName => Container(
-        height: 80,
-        width: double.infinity,
-        child: Image.asset("assets/images/head_name.png", fit: BoxFit.contain),
+  Widget listUserTask(List<Task> listTask) => ListView.separated(
+        itemCount: listTask.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+        itemBuilder: (_, index) => FeedCard(
+          task: listTask[index],
+        ),
       );
 
-  Widget get listPerformedTask => ListView.separated(
-      itemCount: 2,
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      separatorBuilder: (_, __) => const SizedBox(height: 12.0),
-      itemBuilder: (_, index) => ActivityCard());
-  Widget get view => Padding(
-        padding: Style.paddingHor16,
-        child: ListView(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          children: [
-            const SizedBox(height: 10),
-            headName,
-            const SizedBox(height: 10),
-            listPerformedTask
-          ],
-        ),
+  Widget get view => ListView(
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        children: [listUserTask(listDataTask)],
       );
 
   @override

@@ -130,7 +130,7 @@ class Button extends StatelessWidget {
           text!,
           style: style != null
               ? style
-              : Style.bodyw5.copyWith(color: Style.colors.primary),
+              : Style.bodyw6.copyWith(color: Style.colors.primary),
         );
         break;
 

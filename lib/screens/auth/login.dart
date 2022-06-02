@@ -103,7 +103,7 @@ class _LoginControllerState extends State<LoginController> {
   Widget get finishButton => Button.primary(text: "Log in", onPressed: submit);
 
   Widget get errorText =>
-      Text(error, style: Style.bodyw5.copyWith(color: Style.colors.red));
+      Text(error, style: Style.bodyw6.copyWith(color: Style.colors.red));
 
   Widget get registerLink => Text.rich(
         TextSpan(

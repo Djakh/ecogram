@@ -26,12 +26,7 @@ class _FollowingControllerState extends State<FollowingController>
 
   /// --- Methods ---
 
-  void openTaskDetails(Task task) {
-    Navigator.of(context).push(
-      CupertinoPageRoute(builder: (_) => TaskDetailsController(task: task)),
-    );
-  }
-
+ 
   /// --- Widgets ---
 
   Widget listUserTask(List<Task> listTask) => ListView.separated(

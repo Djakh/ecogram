@@ -76,7 +76,7 @@ class _TasksControllerState extends State<TasksController>
             color: Style.colors.primary,
           ),
           unselectedLabelColor: Style.colors.black,
-          labelStyle: Style.bodyw5,
+          labelStyle: Style.bodyw6,
           tabs: [
             tab(Icons.backpack, "Recent"),
             tab(Icons.star, "Featured"),
