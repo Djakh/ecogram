@@ -4,8 +4,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
    <application
-        android:label="ecogram"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Ecogram"
+        android:icon="@mipmap/ecogram">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
